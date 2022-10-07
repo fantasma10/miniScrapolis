@@ -81,195 +81,92 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 shape: BoxShape.rectangle,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(1, 1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 15, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.black,
-                                  size: 40,
-                                ),
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                                child: Text(
-                                  'Detalle historial',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 17,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Column(
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(1, 1),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 15, 0, 0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    'Nombre:',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  borderWidth: 1,
+                                  buttonSize: 60,
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.black,
+                                    size: 40,
                                   ),
+                                  onPressed: () async {
+                                    Navigator.pop(context);
+                                  },
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5, 0, 0, 0),
                                   child: Text(
-                                    widget.nombre!.maybeHandleOverflow(
-                                      maxChars: 40,
-                                      replacement: '…',
-                                    ),
-                                    maxLines: 2,
+                                    'Detalle historial',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
                                           fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
                                         ),
                                   ),
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    'Email:',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    widget.email!.maybeHandleOverflow(
-                                      maxChars: 40,
-                                      replacement: '…',
-                                    ),
-                                    maxLines: 2,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    'Total:  \$',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
-                                  child: Text(
-                                    widget.total!,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                              child: Row(
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Fecha:',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      'Nombre:',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
                                     child: Text(
-                                      widget.kilos!,
+                                      widget.nombre!.maybeHandleOverflow(
+                                        maxChars: 40,
+                                        replacement: '…',
+                                      ),
+                                      maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -281,136 +178,279 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 15, 5, 20),
-                      child: Builder(
-                        builder: (context) {
-                          final listaMateriales = getJsonField(
-                            FFAppState().jsonHistorialDetalle,
-                            r'''$''',
-                          ).toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listaMateriales.length,
-                            itemBuilder: (context, listaMaterialesIndex) {
-                              final listaMaterialesItem =
-                                  listaMateriales[listaMaterialesIndex];
-                              return Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 5, 5),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x6DD2D2D2),
-                                    borderRadius: BorderRadius.circular(10),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      'Email:',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5, 5, 5, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 0, 0, 0),
-                                                  child: Container(
-                                                    width: 60,
-                                                    height: 70,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                      child: Image.network(
-                                                        getJsonField(
-                                                          listaMaterialesItem,
-                                                          r'''$.url_imagen''',
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      widget.email!.maybeHandleOverflow(
+                                        maxChars: 40,
+                                        replacement: '…',
+                                      ),
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      'Total:  \$',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      widget.total!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Fecha:',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: Text(
+                                        widget.kilos!,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(5, 15, 5, 20),
+                        child: Builder(
+                          builder: (context) {
+                            final listaMateriales = getJsonField(
+                              FFAppState().jsonHistorialDetalle,
+                              r'''$''',
+                            ).toList();
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listaMateriales.length,
+                              itemBuilder: (context, listaMaterialesIndex) {
+                                final listaMaterialesItem =
+                                    listaMateriales[listaMaterialesIndex];
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      5, 0, 5, 5),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      color: Color(0x6DD2D2D2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5, 5, 5, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                5, 0, 0, 0),
+                                                    child: Container(
+                                                      width: 60,
+                                                      height: 70,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        child: Image.network(
+                                                          getJsonField(
+                                                            listaMaterialesItem,
+                                                            r'''$.url_imagen''',
+                                                          ),
+                                                          width: 70,
+                                                          height: 70,
+                                                          fit: BoxFit.cover,
                                                         ),
-                                                        width: 70,
-                                                        height: 70,
-                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(3, 0, 3, 0),
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.7,
-                                                height: 90,
-                                                decoration: BoxDecoration(),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(5, 5, 0, 5),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 1, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: Text(
-                                                                getJsonField(
-                                                                  listaMaterialesItem,
-                                                                  r'''$.material''',
-                                                                )
-                                                                    .toString()
-                                                                    .maybeHandleOverflow(
-                                                                      maxChars:
-                                                                          20,
-                                                                      replacement:
-                                                                          '…',
-                                                                    ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(3, 0, 3, 0),
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.7,
+                                                  height: 120,
+                                                  decoration: BoxDecoration(),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                5, 5, 0, 5),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      1, 0, 0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: Text(
+                                                                  getJsonField(
+                                                                    listaMaterialesItem,
+                                                                    r'''$.material''',
+                                                                  )
+                                                                      .toString()
+                                                                      .maybeHandleOverflow(
+                                                                        maxChars:
+                                                                            20,
+                                                                        replacement:
+                                                                            '…',
+                                                                      ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  maxLines: 2,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .subtitle1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        fontSize:
+                                                                            17,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(5,
+                                                                      2, 0, 0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                'Cantidad:  ',
                                                                 textAlign:
                                                                     TextAlign
                                                                         .start,
-                                                                maxLines: 2,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .subtitle1
@@ -421,185 +461,164 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                           17,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .bold,
+                                                                              .w500,
                                                                     ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Text(
+                                                                getJsonField(
+                                                                  listaMaterialesItem,
+                                                                  r'''$.cantidad''',
+                                                                ).toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5, 5, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              'Cantidad:  ',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listaMaterialesItem,
-                                                                r'''$.cantidad''',
-                                                              ).toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(5,
+                                                                      2, 0, 0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                'Precio:  ',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                getJsonField(
+                                                                  listaMaterialesItem,
+                                                                  r'''$.precio_unitario''',
+                                                                )
+                                                                    .toString()
+                                                                    .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          10,
+                                                                      replacement:
+                                                                          '…',
+                                                                    ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5, 5, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              'Precio:  ',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listaMaterialesItem,
-                                                                r'''$.precio_unitario''',
-                                                              ).toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(5,
+                                                                      2, 0, 0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                'Total:  ',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                getJsonField(
+                                                                  listaMaterialesItem,
+                                                                  r'''$.total''',
+                                                                ).toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .subtitle1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Poppins',
+                                                                      fontSize:
+                                                                          17,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5, 5, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              'Total:  ',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listaMaterialesItem,
-                                                                r'''$.total''',
-                                                              ).toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .subtitle1
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Poppins',
-                                                                    fontSize:
-                                                                        17,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
