@@ -369,7 +369,7 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                           .size
                                                           .width *
                                                       0.7,
-                                                  height: 130,
+                                                  height: 125,
                                                   decoration: BoxDecoration(),
                                                   child: Padding(
                                                     padding:
