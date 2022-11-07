@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'cuisiSucursales',
+      title: 'Scrapolis Sucursales',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

@@ -272,8 +272,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 child: CheckboxListTile(
                                   value: guardarInicioSesionValue ??=
                                       FFAppState().guardaUsuarioPassword,
-                                  onChanged: (newValue) => setState(() =>
-                                      guardarInicioSesionValue = newValue!),
+                                  onChanged: (newValue) async {
+                                    setState(() =>
+                                        guardarInicioSesionValue = newValue!);
+                                  },
                                   title: Text(
                                     'Recordar inicio de sesión',
                                     textAlign: TextAlign.end,

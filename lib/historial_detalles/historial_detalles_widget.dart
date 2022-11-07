@@ -2,6 +2,7 @@ import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../ticket/ticket_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -126,6 +127,43 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 ),
                               ],
                             ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30,
+                                      borderWidth: 1,
+                                      buttonSize: 60,
+                                      icon: Icon(
+                                        Icons.local_print_shop_outlined,
+                                        color: Colors.black,
+                                        size: 40,
+                                      ),
+                                      onPressed: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => TicketWidget(
+                                              id: widget.idDetalle,
+                                              fecha: widget.kilos,
+                                              nombre: widget.nombre,
+                                              email: widget.email,
+                                              total: widget.total,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -140,6 +178,47 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      'ID:',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 0, 0, 0),
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        widget.idDetalle,
+                                        '0',
+                                      ).maybeHandleOverflow(
+                                        maxChars: 40,
+                                        replacement: '…',
+                                      ),
+                                      maxLines: 2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,

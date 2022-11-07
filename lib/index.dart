@@ -9,3 +9,4 @@ export 'registro/registro_widget.dart' show RegistroWidget;
 export 'historial_detalles/historial_detalles_widget.dart'
     show HistorialDetallesWidget;
 export 'agregar_kilos/agregar_kilos_widget.dart' show AgregarKilosWidget;
+export 'ticket/ticket_widget.dart' show TicketWidget;
