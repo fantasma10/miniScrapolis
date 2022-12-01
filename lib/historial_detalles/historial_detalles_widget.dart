@@ -155,6 +155,7 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                               nombre: widget.nombre,
                                               email: widget.email,
                                               total: widget.total,
+                                              tipoNav: 'D',
                                             ),
                                           ),
                                         );

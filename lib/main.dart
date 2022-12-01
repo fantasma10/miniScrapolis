@@ -37,8 +37,10 @@ class _MyAppState extends State<MyApp> {
         Duration(seconds: 1), () => setState(() => displaySplashImage = false));
   }
 
-  void setLocale(String language) =>
-      setState(() => _locale = createLocale(language));
+  void setLocale(String language) {
+    setState(() => _locale = createLocale(language));
+  }
+
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = mode;
       });
@@ -46,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Scrapolis Sucursales',
+      title: 'TuTicket',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -63,8 +65,9 @@ class _MyAppState extends State<MyApp> {
                 color: FlutterFlowTheme.of(context).secundariBagGroudBtn,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/icono1.png',
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    'assets/images/SplashTuTicket.png',
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.6,
                     fit: BoxFit.contain,
                   ),
                 ),

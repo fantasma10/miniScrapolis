@@ -102,6 +102,10 @@ class FFAppState {
   void deletePublicarApp() {
     secureStorage.delete(key: 'ff_publicarApp');
   }
+
+  String utulizaNombreTicket = '';
+
+  dynamic empresaTicket;
 }
 
 LatLng? _latLngFromString(String? val) {

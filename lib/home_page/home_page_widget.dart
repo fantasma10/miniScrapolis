@@ -90,7 +90,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/scrapolis-driver-w9dq9o/assets/kswppc0kvetd/icono1.png',
+                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/cuisi-sucursales-f1glia/assets/tqgn1wj5soul/LogoInterior.png',
                                 width: 250,
                                 height: 150,
                                 fit: BoxFit.contain,
@@ -332,6 +332,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             FFAppState().totalPedido = '0');
                                         setState(() =>
                                             FFAppState().totalKilos = '0');
+                                        setState(() =>
+                                            FFAppState().utulizaNombreTicket =
+                                                getJsonField(
+                                              (jsonLogin?.jsonBody ?? ''),
+                                              r'''$.utiliza_nombre_ticket''',
+                                            ).toString());
+                                        setState(() => FFAppState()
+                                                .empresaTicket = getJsonField(
+                                              (jsonLogin?.jsonBody ?? ''),
+                                              r'''$.empresa''',
+                                            ));
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(

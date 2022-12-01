@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../materiales/materiales_widget.dart';
+import '../ticket/ticket_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,6 +20,7 @@ class DetalleOrdenWidget extends StatefulWidget {
 class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
   ApiCallResponse? apiiDetalles;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  ApiCallResponse? apiiHistorialDetalleT;
   ApiCallResponse? jsonFinalizar;
   TextEditingController? txtEmailController;
   TextEditingController? txtNombreController;
@@ -677,19 +679,99 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                                 .primariBagGroudBtn,
                                       ),
                                     );
-                                    setState(
-                                        () => FFAppState().totalPedido = '0');
-                                    setState(
-                                        () => FFAppState().totalKilos = '0');
-                                    setState(() => FFAppState().idPedido = '0');
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MaterialesWidget(),
-                                      ),
-                                      (r) => false,
-                                    );
+                                    setState(() =>
+                                        FFAppState().idPedido = getJsonField(
+                                          (jsonFinalizar?.jsonBody ?? ''),
+                                          r'''$.pedido''',
+                                        ).toString());
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Tu Ticket'),
+                                                  content: Text(
+                                                      '¿Desas imprimir el ticket?'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: Text('No'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: Text('Si'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      apiiHistorialDetalleT =
+                                          await HistorialDetalleCall.call(
+                                        token: FFAppState().tokenUsuarioApp,
+                                        pedido: FFAppState().idPedido,
+                                      );
+                                      if ((apiiHistorialDetalleT?.succeeded ??
+                                          true)) {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => TicketWidget(
+                                              id: FFAppState().idPedido,
+                                              fecha: '',
+                                              nombre: txtNombreController!.text,
+                                              email: txtEmailController!.text,
+                                              total: FFAppState().totalPedido,
+                                              tipoNav: 'F',
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              getJsonField(
+                                                (apiiHistorialDetalleT
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.mensaje''',
+                                              ).toString(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 2000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .tertiaryBagGroudBtn,
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      setState(
+                                          () => FFAppState().idPedido = '0');
+                                      setState(
+                                          () => FFAppState().totalKilos = '0');
+                                      setState(
+                                          () => FFAppState().totalPedido = '0');
+                                      await Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MaterialesWidget(),
+                                        ),
+                                        (r) => false,
+                                      );
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(

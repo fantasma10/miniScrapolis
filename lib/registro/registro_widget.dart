@@ -97,7 +97,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/scrapolis-driver-w9dq9o/assets/kswppc0kvetd/icono1.png',
+                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/cuisi-sucursales-f1glia/assets/tqgn1wj5soul/LogoInterior.png',
                                 width: 250,
                                 height: 150,
                                 fit: BoxFit.contain,

@@ -6,6 +6,8 @@ import '../actions/index.dart'; // Imports custom actions
 import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
 import 'dart:typed_data';
 import 'dart:async';
 import 'package:flutter/services.dart';
@@ -192,12 +194,53 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
     //bytes += generator.setGlobalFont(PosFontType.fontA);
     bytes += generator.reset();
 
-    bytes += generator.text('Scrapolis',
+    if (FFAppState().utulizaNombreTicket == "S") {
+      /* Int8List? _bytes;
+      final ByteData data = await NetworkAssetBundle(Uri.parse(  FFAppState().empresaTicket['logotipo'].toString() )).load( FFAppState().empresaTicket['logotipo'].toString() );
+      _bytes = data.buffer.asInt8List();
+    final image = Imag.decodeImage(_bytes);
+    // Using `ESC *`
+    bytes += generator.image(image!);*/
+
+      bytes += generator.text(
+          FFAppState().empresaTicket['nombre_empresa'].toString(),
+          styles: PosStyles(
+              align: PosAlign.center,
+              height: PosTextSize.size3,
+              width: PosTextSize.size3,
+              bold: true));
+
+      var direccion = FFAppState().empresaTicket['calle'].toString() +
+          ", " +
+          FFAppState().empresaTicket['colonia'].toString() +
+          ", " +
+          FFAppState().empresaTicket['codigo_postal'].toString() +
+          ", " +
+          FFAppState().empresaTicket['ciudad'].toString() +
+          ", " +
+          FFAppState().empresaTicket['estado'].toString();
+      bytes += generator.text(
+        direccion,
         styles: PosStyles(
-            align: PosAlign.center,
-            height: PosTextSize.size3,
-            width: PosTextSize.size3,
-            bold: true));
+          bold: true,
+          fontType: PosFontType.fontA,
+        ),
+      );
+      bytes += generator.text(
+        ("Telefono: " + FFAppState().empresaTicket['telefono'].toString()),
+        styles: PosStyles(
+          bold: true,
+          fontType: PosFontType.fontA,
+        ),
+      );
+      bytes += generator.text(
+        ("Email: " + FFAppState().empresaTicket['email'].toString()),
+        styles: PosStyles(
+          bold: true,
+          fontType: PosFontType.fontA,
+        ),
+      );
+    }
 
     bytes += generator.feed(1);
 

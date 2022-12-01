@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../materiales/materiales_widget.dart';
 import '../custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ class TicketWidget extends StatefulWidget {
     this.nombre,
     this.email,
     this.total,
+    this.tipoNav,
   }) : super(key: key);
 
   final String? id;
@@ -20,6 +22,7 @@ class TicketWidget extends StatefulWidget {
   final String? nombre;
   final String? email;
   final String? total;
+  final String? tipoNav;
 
   @override
   _TicketWidgetState createState() => _TicketWidgetState();
@@ -34,7 +37,7 @@ class _TicketWidgetState extends State<TicketWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -47,7 +50,16 @@ class _TicketWidgetState extends State<TicketWidget> {
             size: 30,
           ),
           onPressed: () async {
-            Navigator.pop(context);
+            if (widget.tipoNav == 'F') {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MaterialesWidget(),
+                ),
+              );
+            } else {
+              Navigator.pop(context);
+            }
           },
         ),
         title: Text(
