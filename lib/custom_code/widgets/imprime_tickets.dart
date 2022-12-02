@@ -1,6 +1,7 @@
 // Automatic FlutterFlow imports
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
+import '../../materiales/materiales_widget.dart';
 import 'index.dart'; // Imports other custom widgets
 import '../actions/index.dart'; // Imports custom actions
 import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
@@ -16,6 +17,7 @@ import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
 import 'package:image/image.dart' as Imag;
 import 'package:json_response/json_response.dart';
+import 'package:intl/intl.dart';
 
 class ImprimeTickets extends StatefulWidget {
   const ImprimeTickets({
@@ -181,6 +183,32 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
     if (conexionStatus) {
       List<int> ticket = await Ticket();
       final result = await PrintBluetoothThermal.writeBytes(ticket);
+      if (result) {
+        if (widget.fecha == "-") {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MaterialesWidget(),
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Error al realizar la impresión",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            duration: Duration(milliseconds: 2000),
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
+          ),
+        );
+      }
+      FFAppState().idPedido = "";
+      FFAppState().totalKilos = "";
+      FFAppState().totalPedido = "";
     } else {
       //no conectado, reconecte
     }
@@ -264,8 +292,16 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
       ),
     );
 
+    var fechaFormat = "";
+    if (widget.fecha == "-") {
+      final now = new DateTime.now();
+      fechaFormat = DateFormat('dMy').format(now); // 28/03/2020
+    } else {
+      fechaFormat = widget.fecha;
+    }
+
     bytes += generator.text(
-      "Fecha: " + widget.fecha ?? "",
+      "Fecha: " + fechaFormat,
       styles: PosStyles(
         fontType: PosFontType.fontA,
       ),
