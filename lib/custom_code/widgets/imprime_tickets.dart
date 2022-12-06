@@ -184,14 +184,14 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
       List<int> ticket = await Ticket();
       final result = await PrintBluetoothThermal.writeBytes(ticket);
       if (result) {
-        if (widget.fecha == "-") {
+        /*if (widget.fecha == "-") {
           await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => MaterialesWidget(),
             ),
           );
-        }
+        }*/
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
