@@ -684,6 +684,19 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                           (jsonFinalizar?.jsonBody ?? ''),
                                           r'''$.pedido''',
                                         ).toString());
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          FFAppState().idPedido,
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    );
                                     var confirmDialogResponse =
                                         await showDialog<bool>(
                                               context: context,
@@ -725,7 +738,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                           MaterialPageRoute(
                                             builder: (context) => TicketWidget(
                                               id: FFAppState().idPedido,
-                                              fecha: '',
+                                              fecha: '-',
                                               nombre: txtNombreController!.text,
                                               email: txtEmailController!.text,
                                               total: FFAppState().totalPedido,

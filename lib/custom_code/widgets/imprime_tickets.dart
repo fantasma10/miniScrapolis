@@ -1,7 +1,6 @@
 // Automatic FlutterFlow imports
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
-import '../../materiales/materiales_widget.dart';
 import 'index.dart'; // Imports other custom widgets
 import '../actions/index.dart'; // Imports custom actions
 import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
@@ -17,6 +16,7 @@ import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
 import 'package:image/image.dart' as Imag;
 import 'package:json_response/json_response.dart';
+import '../../materiales/materiales_widget.dart';
 import 'package:intl/intl.dart';
 
 class ImprimeTickets extends StatefulWidget {
@@ -223,13 +223,6 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
     bytes += generator.reset();
 
     if (FFAppState().utulizaNombreTicket == "S") {
-      /* Int8List? _bytes;
-      final ByteData data = await NetworkAssetBundle(Uri.parse(  FFAppState().empresaTicket['logotipo'].toString() )).load( FFAppState().empresaTicket['logotipo'].toString() );
-      _bytes = data.buffer.asInt8List();
-    final image = Imag.decodeImage(_bytes);
-    // Using `ESC *`
-    bytes += generator.image(image!);*/
-
       bytes += generator.text(
           FFAppState().empresaTicket['nombre_empresa'].toString(),
           styles: PosStyles(
@@ -341,7 +334,7 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
         styles: PosStyles(
             height: PosTextSize.size2, width: PosTextSize.size2, bold: false));
 
-    bytes += generator.feed(3);
+    bytes += generator.feed(1);
 
     bytes += generator.cut();
     return bytes;
