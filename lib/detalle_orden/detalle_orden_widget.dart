@@ -684,19 +684,6 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                           (jsonFinalizar?.jsonBody ?? ''),
                                           r'''$.pedido''',
                                         ).toString());
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          FFAppState().idPedido,
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor: Colors.white,
-                                      ),
-                                    );
                                     var confirmDialogResponse =
                                         await showDialog<bool>(
                                               context: context,
@@ -733,6 +720,14 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                       );
                                       if ((apiiHistorialDetalleT?.succeeded ??
                                           true)) {
+                                        setState(() =>
+                                            FFAppState().jsonHistorialDetalle =
+                                                getJsonField(
+                                              (apiiHistorialDetalleT
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.mensaje''',
+                                            ));
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(

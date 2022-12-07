@@ -183,15 +183,18 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
     if (conexionStatus) {
       List<int> ticket = await Ticket();
       final result = await PrintBluetoothThermal.writeBytes(ticket);
+      FFAppState().idPedido = "";
+      FFAppState().totalKilos = "0";
+      FFAppState().totalPedido = "0";
       if (result) {
-        /*if (widget.fecha == "-") {
+        if (widget.fecha == "-") {
           await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => MaterialesWidget(),
             ),
           );
-        }*/
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -206,9 +209,6 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
           ),
         );
       }
-      FFAppState().idPedido = "";
-      FFAppState().totalKilos = "";
-      FFAppState().totalPedido = "";
     } else {
       //no conectado, reconecte
     }
@@ -334,7 +334,7 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
         styles: PosStyles(
             height: PosTextSize.size2, width: PosTextSize.size2, bold: false));
 
-    bytes += generator.feed(1);
+    //bytes += generator.feed(1);
 
     bytes += generator.cut();
     return bytes;
