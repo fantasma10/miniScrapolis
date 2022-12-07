@@ -51,11 +51,15 @@ class _TicketWidgetState extends State<TicketWidget> {
           ),
           onPressed: () async {
             if (widget.tipoNav == 'F') {
-              await Navigator.push(
+              setState(() => FFAppState().idPedido = '0');
+              setState(() => FFAppState().totalKilos = '0');
+              setState(() => FFAppState().totalPedido = '0');
+              await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => MaterialesWidget(),
                 ),
+                (r) => false,
               );
             } else {
               Navigator.pop(context);
