@@ -7,6 +7,7 @@ import '../menu_principal/menu_principal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OrdenFinalizadaWidget extends StatefulWidget {
   const OrdenFinalizadaWidget({Key? key}) : super(key: key);
@@ -28,10 +29,7 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
         token: FFAppState().tokenUsuarioApp,
       );
       if ((apiHistorial?.succeeded ?? true)) {
-        setState(() => FFAppState().jsonHistorial = getJsonField(
-              (apiHistorial?.jsonBody ?? ''),
-              r'''$.mensaje''',
-            ));
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -54,6 +52,8 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

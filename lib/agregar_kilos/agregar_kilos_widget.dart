@@ -7,6 +7,7 @@ import '../materiales/materiales_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class AgregarKilosWidget extends StatefulWidget {
   const AgregarKilosWidget({
@@ -39,6 +40,8 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.transparent,
@@ -182,26 +185,10 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                                 tipo: '2',
                               );
                               if ((jsonPesaje?.succeeded ?? true)) {
-                                setState(
-                                    () => FFAppState().idPedido = getJsonField(
-                                          (jsonPesaje?.jsonBody ?? ''),
-                                          r'''$.mensaje.cabecera[0].pedido''',
-                                        ).toString());
-                                setState(() =>
-                                    FFAppState().totalPedido = getJsonField(
-                                      (jsonPesaje?.jsonBody ?? ''),
-                                      r'''$.mensaje.cabecera[0].total''',
-                                    ).toString());
-                                setState(() =>
-                                    FFAppState().totalKilos = getJsonField(
-                                      (jsonPesaje?.jsonBody ?? ''),
-                                      r'''$.mensaje.cabecera[0].total_kg''',
-                                    ).toString());
-                                setState(() => FFAppState().listadoMateriales =
-                                        getJsonField(
-                                      (jsonPesaje?.jsonBody ?? ''),
-                                      r'''$.mensaje.detalles''',
-                                    ));
+                                setState(() {});
+                                setState(() {});
+                                setState(() {});
+                                setState(() {});
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

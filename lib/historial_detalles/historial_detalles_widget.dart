@@ -6,6 +6,7 @@ import '../ticket/ticket_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HistorialDetallesWidget extends StatefulWidget {
   const HistorialDetallesWidget({
@@ -42,10 +43,7 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
         pedido: widget.idDetalle,
       );
       if ((apiiHistorialDetalle?.succeeded ?? true)) {
-        setState(() => FFAppState().jsonHistorialDetalle = getJsonField(
-              (apiiHistorialDetalle?.jsonBody ?? ''),
-              r'''$.mensaje''',
-            ));
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -68,6 +66,8 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

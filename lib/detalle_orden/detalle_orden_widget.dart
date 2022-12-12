@@ -9,6 +9,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class DetalleOrdenWidget extends StatefulWidget {
   const DetalleOrdenWidget({Key? key}) : super(key: key);
@@ -35,18 +36,9 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
         pedido: FFAppState().idPedido,
       );
       if ((apiiDetalles?.succeeded ?? true)) {
-        setState(() => FFAppState().jsonDetallePedido = getJsonField(
-              (apiiDetalles?.jsonBody ?? ''),
-              r'''$.mensaje.detalles''',
-            ));
-        setState(() => FFAppState().totalPedido = getJsonField(
-              (apiiDetalles?.jsonBody ?? ''),
-              r'''$.mensaje.cabecera[0].total''',
-            ).toString());
-        setState(() => FFAppState().totalKilos = getJsonField(
-              (apiiDetalles?.jsonBody ?? ''),
-              r'''$.mensaje.cabecera[0].total_kg''',
-            ).toString());
+        setState(() {});
+        setState(() {});
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -79,6 +71,8 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -679,11 +673,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                                 .primariBagGroudBtn,
                                       ),
                                     );
-                                    setState(() =>
-                                        FFAppState().idPedido = getJsonField(
-                                          (jsonFinalizar?.jsonBody ?? ''),
-                                          r'''$.pedido''',
-                                        ).toString());
+                                    setState(() {});
                                     var confirmDialogResponse =
                                         await showDialog<bool>(
                                               context: context,
@@ -720,14 +710,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                       );
                                       if ((apiiHistorialDetalleT?.succeeded ??
                                           true)) {
-                                        setState(() =>
-                                            FFAppState().jsonHistorialDetalle =
-                                                getJsonField(
-                                              (apiiHistorialDetalleT
-                                                      ?.jsonBody ??
-                                                  ''),
-                                              r'''$.mensaje''',
-                                            ));
+                                        setState(() {});
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -765,12 +748,9 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                         );
                                       }
                                     } else {
-                                      setState(
-                                          () => FFAppState().idPedido = '0');
-                                      setState(
-                                          () => FFAppState().totalKilos = '0');
-                                      setState(
-                                          () => FFAppState().totalPedido = '0');
+                                      setState(() {});
+                                      setState(() {});
+                                      setState(() {});
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(

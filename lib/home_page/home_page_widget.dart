@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
@@ -42,6 +43,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
@@ -310,39 +313,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         password: txtPasswordController!.text,
                                       );
                                       if ((jsonLogin?.succeeded ?? true)) {
-                                        setState(() => FFAppState()
-                                                .tokenUsuarioApp = getJsonField(
-                                              (jsonLogin?.jsonBody ?? ''),
-                                              r'''$.token''',
-                                            ).toString());
-                                        setState(() => FFAppState().usuario =
-                                            txtUsuarioController!.text);
-                                        setState(() => FFAppState().password =
-                                            txtPasswordController!.text);
-                                        setState(
-                                            () => FFAppState().idPedido = '0');
-                                        setState(() => FFAppState()
-                                                .publicarApp = getJsonField(
-                                              (jsonLogin?.jsonBody ?? ''),
-                                              r'''$.publicar_app''',
-                                            ).toString());
-                                        setState(() => FFAppState()
-                                            .guardaUsuarioPassword = true);
-                                        setState(() =>
-                                            FFAppState().totalPedido = '0');
-                                        setState(() =>
-                                            FFAppState().totalKilos = '0');
-                                        setState(() =>
-                                            FFAppState().utulizaNombreTicket =
-                                                getJsonField(
-                                              (jsonLogin?.jsonBody ?? ''),
-                                              r'''$.utiliza_nombre_ticket''',
-                                            ).toString());
-                                        setState(() => FFAppState()
-                                                .empresaTicket = getJsonField(
-                                              (jsonLogin?.jsonBody ?? ''),
-                                              r'''$.empresa''',
-                                            ));
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
+                                        setState(() {});
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(

@@ -10,6 +10,7 @@ import '../menu_principal/menu_principal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MaterialesWidget extends StatefulWidget {
   const MaterialesWidget({Key? key}) : super(key: key);
@@ -35,10 +36,7 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
         pedido: FFAppState().idPedido,
       );
       if ((apiiMateriales?.succeeded ?? true)) {
-        setState(() => FFAppState().listadoMateriales = getJsonField(
-              (apiiMateriales?.jsonBody ?? ''),
-              r'''$.mensaje''',
-            ));
+        setState(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -61,6 +59,8 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -489,22 +489,10 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                   tipo: '1',
                                                                                 );
                                                                                 if ((responseMaterialesResta?.succeeded ?? true)) {
-                                                                                  setState(() => FFAppState().listadoMateriales = getJsonField(
-                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.detalles''',
-                                                                                      ));
-                                                                                  setState(() => FFAppState().totalPedido = getJsonField(
-                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].total''',
-                                                                                      ).toString());
-                                                                                  setState(() => FFAppState().totalKilos = getJsonField(
-                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].total_kg''',
-                                                                                      ).toString());
-                                                                                  setState(() => FFAppState().idPedido = getJsonField(
-                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].pedido''',
-                                                                                      ).toString());
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
                                                                                       content: Text(
@@ -533,9 +521,9 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                       backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
                                                                                     ),
                                                                                   );
-                                                                                  setState(() => FFAppState().totalPedido = '0');
-                                                                                  setState(() => FFAppState().totalKilos = '0');
-                                                                                  setState(() => FFAppState().idPedido = '0');
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
                                                                                 }
 
                                                                                 setState(() {});
@@ -616,22 +604,10 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                   tipo: '1',
                                                                                 );
                                                                                 if ((responseMaterialesSuma?.succeeded ?? true)) {
-                                                                                  setState(() => FFAppState().listadoMateriales = getJsonField(
-                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.detalles''',
-                                                                                      ));
-                                                                                  setState(() => FFAppState().totalPedido = getJsonField(
-                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].total''',
-                                                                                      ).toString());
-                                                                                  setState(() => FFAppState().totalKilos = getJsonField(
-                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].total_kg''',
-                                                                                      ).toString());
-                                                                                  setState(() => FFAppState().idPedido = getJsonField(
-                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                        r'''$.mensaje.cabecera[0].pedido''',
-                                                                                      ).toString());
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
                                                                                       content: Text(
@@ -660,9 +636,9 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                       backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
                                                                                     ),
                                                                                   );
-                                                                                  setState(() => FFAppState().totalPedido = '0');
-                                                                                  setState(() => FFAppState().totalKilos = '0');
-                                                                                  setState(() => FFAppState().idPedido = '0');
+                                                                                  setState(() {});
+                                                                                  setState(() {});
+                                                                                  setState(() {});
                                                                                 }
 
                                                                                 setState(() {});

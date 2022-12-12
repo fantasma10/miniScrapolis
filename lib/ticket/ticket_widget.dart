@@ -5,6 +5,7 @@ import '../materiales/materiales_widget.dart';
 import '../custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class TicketWidget extends StatefulWidget {
   const TicketWidget({
@@ -33,6 +34,8 @@ class _TicketWidgetState extends State<TicketWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -51,9 +54,9 @@ class _TicketWidgetState extends State<TicketWidget> {
           ),
           onPressed: () async {
             if (widget.tipoNav == 'F') {
-              setState(() => FFAppState().idPedido = '0');
-              setState(() => FFAppState().totalKilos = '0');
-              setState(() => FFAppState().totalPedido = '0');
+              setState(() {});
+              setState(() {});
+              setState(() {});
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(

@@ -7,6 +7,7 @@ import '../materiales/materiales_widget.dart';
 import '../orden_finalizada/orden_finalizada_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MenuPrincipalWidget extends StatefulWidget {
   const MenuPrincipalWidget({Key? key}) : super(key: key);
@@ -20,6 +21,8 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.transparent,

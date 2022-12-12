@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:csv/csv.dart';
 import 'flutter_flow/lat_lng.dart';
 import 'dart:convert';
 
-class FFAppState {
+class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
@@ -32,80 +33,161 @@ class FFAppState {
   String _usuario = '';
   String get usuario => _usuario;
   set usuario(String _value) {
+    notifyListeners();
+
     _usuario = _value;
     secureStorage.setString('ff_usuario', _value);
   }
 
   void deleteUsuario() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_usuario');
   }
 
   String _password = '';
   String get password => _password;
   set password(String _value) {
+    notifyListeners();
+
     _password = _value;
     secureStorage.setString('ff_password', _value);
   }
 
   void deletePassword() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_password');
   }
 
   bool _guardaUsuarioPassword = true;
   bool get guardaUsuarioPassword => _guardaUsuarioPassword;
   set guardaUsuarioPassword(bool _value) {
+    notifyListeners();
+
     _guardaUsuarioPassword = _value;
     secureStorage.setBool('ff_guardaUsuarioPassword', _value);
   }
 
   void deleteGuardaUsuarioPassword() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_guardaUsuarioPassword');
   }
 
   String _tokenUsuarioApp = '';
   String get tokenUsuarioApp => _tokenUsuarioApp;
   set tokenUsuarioApp(String _value) {
+    notifyListeners();
+
     _tokenUsuarioApp = _value;
     secureStorage.setString('ff_tokenUsuarioApp', _value);
   }
 
   void deleteTokenUsuarioApp() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_tokenUsuarioApp');
   }
 
-  String ocultaOpciones = '';
+  String _ocultaOpciones = '';
+  String get ocultaOpciones => _ocultaOpciones;
+  set ocultaOpciones(String _value) {
+    notifyListeners();
 
-  dynamic listadoMateriales;
+    _ocultaOpciones = _value;
+  }
 
-  String idPedido = '';
+  dynamic _listadoMateriales;
+  dynamic get listadoMateriales => _listadoMateriales;
+  set listadoMateriales(dynamic _value) {
+    notifyListeners();
 
-  String totalPedido = '0';
+    _listadoMateriales = _value;
+  }
 
-  String urlNuevoPedido =
+  String _idPedido = '';
+  String get idPedido => _idPedido;
+  set idPedido(String _value) {
+    notifyListeners();
+
+    _idPedido = _value;
+  }
+
+  String _totalPedido = '0';
+  String get totalPedido => _totalPedido;
+  set totalPedido(String _value) {
+    notifyListeners();
+
+    _totalPedido = _value;
+  }
+
+  String _urlNuevoPedido =
       'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/nuevo_pedido';
+  String get urlNuevoPedido => _urlNuevoPedido;
+  set urlNuevoPedido(String _value) {
+    notifyListeners();
 
-  String totalKilos = '0';
+    _urlNuevoPedido = _value;
+  }
 
-  dynamic jsonDetallePedido;
+  String _totalKilos = '0';
+  String get totalKilos => _totalKilos;
+  set totalKilos(String _value) {
+    notifyListeners();
 
-  dynamic jsonHistorial;
+    _totalKilos = _value;
+  }
 
-  dynamic jsonHistorialDetalle;
+  dynamic _jsonDetallePedido;
+  dynamic get jsonDetallePedido => _jsonDetallePedido;
+  set jsonDetallePedido(dynamic _value) {
+    notifyListeners();
+
+    _jsonDetallePedido = _value;
+  }
+
+  dynamic _jsonHistorial;
+  dynamic get jsonHistorial => _jsonHistorial;
+  set jsonHistorial(dynamic _value) {
+    notifyListeners();
+
+    _jsonHistorial = _value;
+  }
+
+  dynamic _jsonHistorialDetalle;
+  dynamic get jsonHistorialDetalle => _jsonHistorialDetalle;
+  set jsonHistorialDetalle(dynamic _value) {
+    notifyListeners();
+
+    _jsonHistorialDetalle = _value;
+  }
 
   String _publicarApp = 'S';
   String get publicarApp => _publicarApp;
   set publicarApp(String _value) {
+    notifyListeners();
+
     _publicarApp = _value;
     secureStorage.setString('ff_publicarApp', _value);
   }
 
   void deletePublicarApp() {
+    notifyListeners();
     secureStorage.delete(key: 'ff_publicarApp');
   }
 
-  String utulizaNombreTicket = '';
+  String _utulizaNombreTicket = '';
+  String get utulizaNombreTicket => _utulizaNombreTicket;
+  set utulizaNombreTicket(String _value) {
+    notifyListeners();
 
-  dynamic empresaTicket;
+    _utulizaNombreTicket = _value;
+  }
+
+  dynamic _empresaTicket;
+  dynamic get empresaTicket => _empresaTicket;
+  set empresaTicket(dynamic _value) {
+    notifyListeners();
+
+    _empresaTicket = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
