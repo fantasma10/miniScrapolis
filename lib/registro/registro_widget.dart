@@ -23,7 +23,6 @@ class _RegistroWidgetState extends State<RegistroWidget> {
   TextEditingController? txtEmailController;
   TextEditingController? txtTelefonoController;
   TextEditingController? txtPasswordController;
-
   late bool txtPasswordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

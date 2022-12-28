@@ -20,6 +20,7 @@ class DetalleOrdenWidget extends StatefulWidget {
 
 class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
   ApiCallResponse? apiiDetalles;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   ApiCallResponse? apiiHistorialDetalleT;
   ApiCallResponse? jsonFinalizar;
@@ -36,9 +37,22 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
         pedido: FFAppState().idPedido,
       );
       if ((apiiDetalles?.succeeded ?? true)) {
-        setState(() {});
-        setState(() {});
-        setState(() {});
+        FFAppState().update(() {
+          FFAppState().jsonDetallePedido = getJsonField(
+            (apiiDetalles?.jsonBody ?? ''),
+            r'''$.mensaje.detalles''',
+          );
+          FFAppState().totalPedido = getJsonField(
+            (apiiDetalles?.jsonBody ?? ''),
+            r'''$.mensaje.cabecera[0].total''',
+          ).toString().toString();
+        });
+        FFAppState().update(() {
+          FFAppState().totalKilos = getJsonField(
+            (apiiDetalles?.jsonBody ?? ''),
+            r'''$.mensaje.cabecera[0].total_kg''',
+          ).toString().toString();
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -46,7 +60,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
               getJsonField(
                 (apiiDetalles?.jsonBody ?? ''),
                 r'''$.mensaje''',
-              ).toString(),
+              ).toString().toString(),
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -64,6 +78,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     txtEmailController?.dispose();
     txtNombreController?.dispose();
     super.dispose();
@@ -77,7 +92,7 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -673,7 +688,12 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                                 .primariBagGroudBtn,
                                       ),
                                     );
-                                    setState(() {});
+                                    FFAppState().update(() {
+                                      FFAppState().idPedido = getJsonField(
+                                        (jsonFinalizar?.jsonBody ?? ''),
+                                        r'''$.pedido''',
+                                      ).toString();
+                                    });
                                     var confirmDialogResponse =
                                         await showDialog<bool>(
                                               context: context,
@@ -710,7 +730,14 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                       );
                                       if ((apiiHistorialDetalleT?.succeeded ??
                                           true)) {
-                                        setState(() {});
+                                        FFAppState().update(() {
+                                          FFAppState().jsonHistorialDetalle =
+                                              getJsonField(
+                                            (apiiHistorialDetalleT?.jsonBody ??
+                                                ''),
+                                            r'''$.mensaje''',
+                                          );
+                                        });
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -748,9 +775,13 @@ class _DetalleOrdenWidgetState extends State<DetalleOrdenWidget> {
                                         );
                                       }
                                     } else {
-                                      setState(() {});
-                                      setState(() {});
-                                      setState(() {});
+                                      FFAppState().update(() {
+                                        FFAppState().idPedido = '0';
+                                        FFAppState().totalKilos = '0';
+                                      });
+                                      FFAppState().update(() {
+                                        FFAppState().totalPedido = '0';
+                                      });
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(

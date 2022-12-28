@@ -30,7 +30,14 @@ class TicketWidget extends StatefulWidget {
 }
 
 class _TicketWidgetState extends State<TicketWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +61,13 @@ class _TicketWidgetState extends State<TicketWidget> {
           ),
           onPressed: () async {
             if (widget.tipoNav == 'F') {
-              setState(() {});
-              setState(() {});
-              setState(() {});
+              FFAppState().update(() {
+                FFAppState().idPedido = '0';
+                FFAppState().totalKilos = '0';
+              });
+              FFAppState().update(() {
+                FFAppState().totalPedido = '0';
+              });
               await Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -83,7 +94,7 @@ class _TicketWidgetState extends State<TicketWidget> {
       ),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [

@@ -43,7 +43,12 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
         pedido: widget.idDetalle,
       );
       if ((apiiHistorialDetalle?.succeeded ?? true)) {
-        setState(() {});
+        FFAppState().update(() {
+          FFAppState().jsonHistorialDetalle = getJsonField(
+            (apiiHistorialDetalle?.jsonBody ?? ''),
+            r'''$.mensaje''',
+          );
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -51,7 +56,7 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
               getJsonField(
                 (apiiHistorialDetalle?.jsonBody ?? ''),
                 r'''$.mensaje''',
-              ).toString(),
+              ).toString().toString(),
               style: TextStyle(
                 color: Colors.white,
               ),

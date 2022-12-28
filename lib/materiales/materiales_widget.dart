@@ -36,7 +36,12 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
         pedido: FFAppState().idPedido,
       );
       if ((apiiMateriales?.succeeded ?? true)) {
-        setState(() {});
+        FFAppState().update(() {
+          FFAppState().listadoMateriales = getJsonField(
+            (apiiMateriales?.jsonBody ?? ''),
+            r'''$.mensaje''',
+          );
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -44,7 +49,7 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
               getJsonField(
                 (apiiMateriales?.jsonBody ?? ''),
                 r'''$.mensaje''',
-              ).toString(),
+              ).toString().toString(),
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -489,10 +494,26 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                   tipo: '1',
                                                                                 );
                                                                                 if ((responseMaterialesResta?.succeeded ?? true)) {
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().listadoMateriales = getJsonField(
+                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.detalles''',
+                                                                                    );
+                                                                                    FFAppState().totalPedido = getJsonField(
+                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].total''',
+                                                                                    ).toString();
+                                                                                  });
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().totalKilos = getJsonField(
+                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].total_kg''',
+                                                                                    ).toString();
+                                                                                    FFAppState().idPedido = getJsonField(
+                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].pedido''',
+                                                                                    ).toString();
+                                                                                  });
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
                                                                                       content: Text(
@@ -521,9 +542,13 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                       backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
                                                                                     ),
                                                                                   );
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().totalPedido = '0';
+                                                                                    FFAppState().totalKilos = '0';
+                                                                                  });
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().idPedido = '0';
+                                                                                  });
                                                                                 }
 
                                                                                 setState(() {});
@@ -604,10 +629,26 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                   tipo: '1',
                                                                                 );
                                                                                 if ((responseMaterialesSuma?.succeeded ?? true)) {
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().listadoMateriales = getJsonField(
+                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.detalles''',
+                                                                                    );
+                                                                                    FFAppState().totalPedido = getJsonField(
+                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].total''',
+                                                                                    ).toString();
+                                                                                  });
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().totalKilos = getJsonField(
+                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].total_kg''',
+                                                                                    ).toString();
+                                                                                    FFAppState().idPedido = getJsonField(
+                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                      r'''$.mensaje.cabecera[0].pedido''',
+                                                                                    ).toString();
+                                                                                  });
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
                                                                                       content: Text(
@@ -636,9 +677,13 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                                                       backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
                                                                                     ),
                                                                                   );
-                                                                                  setState(() {});
-                                                                                  setState(() {});
-                                                                                  setState(() {});
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().totalPedido = '0';
+                                                                                    FFAppState().totalKilos = '0';
+                                                                                  });
+                                                                                  FFAppState().update(() {
+                                                                                    FFAppState().idPedido = '0';
+                                                                                  });
                                                                                 }
 
                                                                                 setState(() {});
