@@ -17,7 +17,14 @@ class MenuPrincipalWidget extends StatefulWidget {
 }
 
 class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void dispose() {
+    _unfocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,7 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
       key: scaffoldKey,
       backgroundColor: Colors.transparent,
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,

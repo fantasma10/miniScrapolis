@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
 
@@ -20,14 +21,15 @@ class LoginCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'login',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/auth/login',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/auth/login',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -43,14 +45,15 @@ class EliminarUsuarioCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'eliminarUsuario',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/eliminarPesador',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/eliminarPesador',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -69,13 +72,15 @@ class ObtenerMaterialesCall {
     return ApiManager.instance.makeApiCall(
       callName: 'obtenerMateriales',
       apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/obtener_materiales',
+          'https://tuticket.scrapolis.mx/apituticket/api/obtener_materiales',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -99,14 +104,15 @@ class NuevoPedidoCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'nuevoPedido',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/nuevo_pedido',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/nuevo_pedido',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -124,14 +130,15 @@ class DetallePedidoCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'detallePedido',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/detalle_pedido',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/detalle_pedido',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -153,14 +160,15 @@ class FinalizarPedidoCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'finalizarPedido',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/finalizar_pedido',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/finalizar_pedido',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -176,14 +184,15 @@ class HistorialCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Historial',
-      apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/historial_pedidos',
+      apiUrl: 'https://tuticket.scrapolis.mx/apituticket/api/historial_pedidos',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -202,13 +211,15 @@ class HistorialDetalleCall {
     return ApiManager.instance.makeApiCall(
       callName: 'HistorialDetalle',
       apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/historial_detalle_pedido',
+          'https://tuticket.scrapolis.mx/apituticket/api/historial_detalle_pedido',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }
@@ -233,13 +244,15 @@ class RegistrarmeCall {
     return ApiManager.instance.makeApiCall(
       callName: 'registrarme',
       apiUrl:
-          'https://www.miniscrapolis.scrapolis.mx/apiminiscrapolis/api/auth/registrar_pesador',
+          'https://tuticket.scrapolis.mx/apituticket/api/auth/registrar_pesador',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
       cache: false,
     );
   }

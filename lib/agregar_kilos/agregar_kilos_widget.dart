@@ -24,6 +24,7 @@ class AgregarKilosWidget extends StatefulWidget {
 class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
   ApiCallResponse? jsonPesaje;
   TextEditingController? textKilosController;
+  final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -34,6 +35,7 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
 
   @override
   void dispose() {
+    _unfocusNode.dispose();
     textKilosController?.dispose();
     super.dispose();
   }
@@ -46,7 +48,7 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
       key: scaffoldKey,
       backgroundColor: Colors.transparent,
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -185,10 +187,26 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                                 tipo: '2',
                               );
                               if ((jsonPesaje?.succeeded ?? true)) {
-                                setState(() {});
-                                setState(() {});
-                                setState(() {});
-                                setState(() {});
+                                FFAppState().update(() {
+                                  FFAppState().idPedido = getJsonField(
+                                    (jsonPesaje?.jsonBody ?? ''),
+                                    r'''$.mensaje.cabecera[0].pedido''',
+                                  ).toString();
+                                  FFAppState().totalPedido = getJsonField(
+                                    (jsonPesaje?.jsonBody ?? ''),
+                                    r'''$.mensaje.cabecera[0].total''',
+                                  ).toString();
+                                });
+                                FFAppState().update(() {
+                                  FFAppState().totalKilos = getJsonField(
+                                    (jsonPesaje?.jsonBody ?? ''),
+                                    r'''$.mensaje.cabecera[0].total_kg''',
+                                  ).toString();
+                                  FFAppState().listadoMateriales = getJsonField(
+                                    (jsonPesaje?.jsonBody ?? ''),
+                                    r'''$.mensaje.detalles''',
+                                  );
+                                });
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

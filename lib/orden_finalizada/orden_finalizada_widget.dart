@@ -29,7 +29,12 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
         token: FFAppState().tokenUsuarioApp,
       );
       if ((apiHistorial?.succeeded ?? true)) {
-        setState(() {});
+        FFAppState().update(() {
+          FFAppState().jsonHistorial = getJsonField(
+            (apiHistorial?.jsonBody ?? ''),
+            r'''$.mensaje''',
+          );
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -37,7 +42,7 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
               getJsonField(
                 (apiHistorial?.jsonBody ?? ''),
                 r'''$.mensaje''',
-              ).toString(),
+              ).toString().toString(),
               style: TextStyle(
                 color: FlutterFlowTheme.of(context).primaryText,
               ),

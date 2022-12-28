@@ -20,7 +20,6 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   ApiCallResponse? jsonLogin;
   TextEditingController? txtPasswordController;
-
   late bool txtPasswordVisibility;
   TextEditingController? txtUsuarioController;
   bool? guardarInicioSesionValue;
@@ -313,16 +312,45 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         password: txtPasswordController!.text,
                                       );
                                       if ((jsonLogin?.succeeded ?? true)) {
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
-                                        setState(() {});
+                                        FFAppState().update(() {
+                                          FFAppState().tokenUsuarioApp =
+                                              getJsonField(
+                                            (jsonLogin?.jsonBody ?? ''),
+                                            r'''$.token''',
+                                          ).toString();
+                                          FFAppState().usuario =
+                                              txtUsuarioController!.text;
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().password =
+                                              txtPasswordController!.text;
+                                          FFAppState().idPedido = '0';
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().publicarApp =
+                                              getJsonField(
+                                            (jsonLogin?.jsonBody ?? ''),
+                                            r'''$.publicar_app''',
+                                          ).toString();
+                                          FFAppState().guardaUsuarioPassword =
+                                              true;
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().totalPedido = '0';
+                                          FFAppState().totalKilos = '0';
+                                        });
+                                        FFAppState().update(() {
+                                          FFAppState().utulizaNombreTicket =
+                                              getJsonField(
+                                            (jsonLogin?.jsonBody ?? ''),
+                                            r'''$.utiliza_nombre_ticket''',
+                                          ).toString();
+                                          FFAppState().empresaTicket =
+                                              getJsonField(
+                                            (jsonLogin?.jsonBody ?? ''),
+                                            r'''$.empresa''',
+                                          );
+                                        });
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
