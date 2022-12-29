@@ -351,6 +351,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             r'''$.empresa''',
                                           );
                                         });
+                                        FFAppState().utilizamodificaprecio =
+                                            getJsonField(
+                                          (jsonLogin?.jsonBody ?? ''),
+                                          r'''$.utiliza_modifica_precio''',
+                                        );
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(

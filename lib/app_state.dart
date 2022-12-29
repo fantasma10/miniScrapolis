@@ -156,6 +156,12 @@ class FFAppState extends ChangeNotifier {
   set empresaTicket(dynamic _value) {
     _empresaTicket = _value;
   }
+
+  bool _utilizamodificaprecio = false;
+  bool get utilizamodificaprecio => _utilizamodificaprecio;
+  set utilizamodificaprecio(bool _value) {
+    _utilizamodificaprecio = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

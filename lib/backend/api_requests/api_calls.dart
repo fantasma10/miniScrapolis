@@ -93,6 +93,8 @@ class NuevoPedidoCall {
     String? cantidad = '',
     String? token = '',
     String? tipo = '',
+    String? tipoOperacion = '',
+    String? precio = '',
   }) {
     final body = '''
 {
@@ -100,7 +102,9 @@ class NuevoPedidoCall {
   "pedido": "${pedido}",
   "cantidad": "${cantidad}",
   "token": "${token}",
-  "tipo": "${tipo}"
+  "tipo": "${tipo}",
+  "tipo_operacion": "${tipoOperacion}",
+  "precio": "${precio}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'nuevoPedido',

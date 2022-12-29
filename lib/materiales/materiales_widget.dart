@@ -1,4 +1,3 @@
-import '../agregar_kilos/agregar_kilos_widget.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../detalle_orden/detalle_orden_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -7,6 +6,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../home_page/home_page_widget.dart';
 import '../menu_principal/menu_principal_widget.dart';
+import '../modificar_precio/modificar_precio_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -359,7 +359,7 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.7,
+                                                      0.75,
                                                   height: 90,
                                                   decoration: BoxDecoration(),
                                                   child: Padding(
@@ -427,276 +427,321 @@ class _MaterialesWidgetState extends State<MaterialesWidget> {
                                                             ],
                                                           ),
                                                         ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      5, 0, 0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Container(
-                                                                width: 210,
-                                                                height: 40,
-                                                                decoration:
-                                                                    BoxDecoration(),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    Container(
-                                                                      width:
-                                                                          210,
-                                                                      height:
-                                                                          35,
-                                                                      decoration:
-                                                                          BoxDecoration(),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                5,
-                                                                                0,
-                                                                                10,
-                                                                                0),
-                                                                            child:
-                                                                                FlutterFlowIconButton(
-                                                                              borderColor: Colors.transparent,
-                                                                              borderRadius: 15,
-                                                                              borderWidth: 0,
-                                                                              buttonSize: 30,
-                                                                              fillColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
-                                                                              icon: Icon(
-                                                                                Icons.horizontal_rule,
-                                                                                color: FlutterFlowTheme.of(context).lineColor,
-                                                                                size: 15,
-                                                                              ),
-                                                                              onPressed: () async {
-                                                                                responseMaterialesResta = await NuevoPedidoCall.call(
-                                                                                  material: getJsonField(
-                                                                                    listaMaterialesItem,
-                                                                                    r'''$.material_id''',
-                                                                                  ).toString(),
-                                                                                  pedido: FFAppState().idPedido,
-                                                                                  cantidad: '-1',
-                                                                                  token: FFAppState().tokenUsuarioApp,
-                                                                                  tipo: '1',
-                                                                                );
-                                                                                if ((responseMaterialesResta?.succeeded ?? true)) {
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().listadoMateriales = getJsonField(
-                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.detalles''',
-                                                                                    );
-                                                                                    FFAppState().totalPedido = getJsonField(
-                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].total''',
-                                                                                    ).toString();
-                                                                                  });
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().totalKilos = getJsonField(
-                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].total_kg''',
-                                                                                    ).toString();
-                                                                                    FFAppState().idPedido = getJsonField(
-                                                                                      (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].pedido''',
-                                                                                    ).toString();
-                                                                                  });
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                    SnackBar(
-                                                                                      content: Text(
-                                                                                        'Operación realizada',
-                                                                                        style: TextStyle(
-                                                                                          color: Colors.white,
-                                                                                        ),
-                                                                                      ),
-                                                                                      duration: Duration(milliseconds: 2000),
-                                                                                      backgroundColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
-                                                                                    ),
-                                                                                  );
-                                                                                } else {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                    SnackBar(
-                                                                                      content: Text(
-                                                                                        getJsonField(
-                                                                                          (responseMaterialesResta?.jsonBody ?? ''),
-                                                                                          r'''$.mensaje''',
-                                                                                        ).toString(),
-                                                                                        style: TextStyle(
-                                                                                          color: Colors.white,
-                                                                                        ),
-                                                                                      ),
-                                                                                      duration: Duration(milliseconds: 2000),
-                                                                                      backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
-                                                                                    ),
-                                                                                  );
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().totalPedido = '0';
-                                                                                    FFAppState().totalKilos = '0';
-                                                                                  });
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().idPedido = '0';
-                                                                                  });
-                                                                                }
-
-                                                                                setState(() {});
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                100,
-                                                                            height:
-                                                                                100,
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: [
-                                                                                InkWell(
-                                                                                  onTap: () async {
-                                                                                    await Navigator.push(
-                                                                                      context,
-                                                                                      PageTransition(
-                                                                                        type: PageTransitionType.scale,
-                                                                                        alignment: Alignment.bottomCenter,
-                                                                                        duration: Duration(milliseconds: 300),
-                                                                                        reverseDuration: Duration(milliseconds: 300),
-                                                                                        child: AgregarKilosWidget(
-                                                                                          pIdMaterial: getJsonField(
-                                                                                            listaMaterialesItem,
-                                                                                            r'''$.material_id''',
-                                                                                          ).toString(),
-                                                                                        ),
-                                                                                      ),
-                                                                                    );
-                                                                                  },
-                                                                                  child: Text(
-                                                                                    getJsonField(
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0,
+                                                                        5,
+                                                                        0,
+                                                                        0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Container(
+                                                                  width: 210,
+                                                                  height: 40,
+                                                                  decoration:
+                                                                      BoxDecoration(),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            210,
+                                                                        height:
+                                                                            35,
+                                                                        decoration:
+                                                                            BoxDecoration(),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 10, 0),
+                                                                              child: FlutterFlowIconButton(
+                                                                                borderColor: Colors.transparent,
+                                                                                borderRadius: 15,
+                                                                                borderWidth: 0,
+                                                                                buttonSize: 30,
+                                                                                fillColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
+                                                                                icon: Icon(
+                                                                                  Icons.horizontal_rule,
+                                                                                  color: FlutterFlowTheme.of(context).lineColor,
+                                                                                  size: 15,
+                                                                                ),
+                                                                                onPressed: () async {
+                                                                                  responseMaterialesResta = await NuevoPedidoCall.call(
+                                                                                    material: getJsonField(
                                                                                       listaMaterialesItem,
-                                                                                      r'''$.cantidad''',
+                                                                                      r'''$.material_id''',
                                                                                     ).toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: 'Poppins',
-                                                                                          fontSize: 17,
+                                                                                    pedido: FFAppState().idPedido,
+                                                                                    cantidad: '-1',
+                                                                                    token: FFAppState().tokenUsuarioApp,
+                                                                                    tipo: '1',
+                                                                                  );
+                                                                                  if ((responseMaterialesResta?.succeeded ?? true)) {
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().listadoMateriales = getJsonField(
+                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.detalles''',
+                                                                                      );
+                                                                                      FFAppState().totalPedido = getJsonField(
+                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].total''',
+                                                                                      ).toString();
+                                                                                    });
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().totalKilos = getJsonField(
+                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].total_kg''',
+                                                                                      ).toString();
+                                                                                      FFAppState().idPedido = getJsonField(
+                                                                                        (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].pedido''',
+                                                                                      ).toString();
+                                                                                    });
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          'Operación realizada',
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                          ),
                                                                                         ),
+                                                                                        duration: Duration(milliseconds: 2000),
+                                                                                        backgroundColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
+                                                                                      ),
+                                                                                    );
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          getJsonField(
+                                                                                            (responseMaterialesResta?.jsonBody ?? ''),
+                                                                                            r'''$.mensaje''',
+                                                                                          ).toString(),
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 2000),
+                                                                                        backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
+                                                                                      ),
+                                                                                    );
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().totalPedido = '0';
+                                                                                      FFAppState().totalKilos = '0';
+                                                                                    });
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().idPedido = '0';
+                                                                                    });
+                                                                                  }
+
+                                                                                  setState(() {});
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                            Container(
+                                                                              width: 100,
+                                                                              height: 100,
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Column(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  InkWell(
+                                                                                    onTap: () async {
+                                                                                      await Navigator.push(
+                                                                                        context,
+                                                                                        PageTransition(
+                                                                                          type: PageTransitionType.scale,
+                                                                                          alignment: Alignment.bottomCenter,
+                                                                                          duration: Duration(milliseconds: 300),
+                                                                                          reverseDuration: Duration(milliseconds: 300),
+                                                                                          child: ModificarPrecioWidget(
+                                                                                            pIdMaterial: getJsonField(
+                                                                                              listaMaterialesItem,
+                                                                                              r'''$.material_id''',
+                                                                                            ).toString(),
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                    child: Text(
+                                                                                      getJsonField(
+                                                                                        listaMaterialesItem,
+                                                                                        r'''$.cantidad''',
+                                                                                      ).toString(),
+                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                            fontFamily: 'Poppins',
+                                                                                            fontSize: 17,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                                              child: FlutterFlowIconButton(
+                                                                                borderColor: Colors.transparent,
+                                                                                borderRadius: 15,
+                                                                                borderWidth: 0,
+                                                                                buttonSize: 30,
+                                                                                fillColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
+                                                                                icon: Icon(
+                                                                                  Icons.add,
+                                                                                  color: FlutterFlowTheme.of(context).lineColor,
+                                                                                  size: 15,
+                                                                                ),
+                                                                                onPressed: () async {
+                                                                                  responseMaterialesSuma = await NuevoPedidoCall.call(
+                                                                                    material: getJsonField(
+                                                                                      listaMaterialesItem,
+                                                                                      r'''$.material_id''',
+                                                                                    ).toString(),
+                                                                                    pedido: FFAppState().idPedido,
+                                                                                    cantidad: '1',
+                                                                                    token: FFAppState().tokenUsuarioApp,
+                                                                                    tipo: '1',
+                                                                                  );
+                                                                                  if ((responseMaterialesSuma?.succeeded ?? true)) {
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().listadoMateriales = getJsonField(
+                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.detalles''',
+                                                                                      );
+                                                                                      FFAppState().totalPedido = getJsonField(
+                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].total''',
+                                                                                      ).toString();
+                                                                                    });
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().totalKilos = getJsonField(
+                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].total_kg''',
+                                                                                      ).toString();
+                                                                                      FFAppState().idPedido = getJsonField(
+                                                                                        (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                        r'''$.mensaje.cabecera[0].pedido''',
+                                                                                      ).toString();
+                                                                                    });
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          'Operación realizada',
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 1000),
+                                                                                        backgroundColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
+                                                                                      ),
+                                                                                    );
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          getJsonField(
+                                                                                            (responseMaterialesSuma?.jsonBody ?? ''),
+                                                                                            r'''$.mensaje''',
+                                                                                          ).toString(),
+                                                                                          style: TextStyle(
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 2000),
+                                                                                        backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
+                                                                                      ),
+                                                                                    );
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().totalPedido = '0';
+                                                                                      FFAppState().totalKilos = '0';
+                                                                                    });
+                                                                                    FFAppState().update(() {
+                                                                                      FFAppState().idPedido = '0';
+                                                                                    });
+                                                                                  }
+
+                                                                                  setState(() {});
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .end,
+                                                                    children: [
+                                                                      if (FFAppState()
+                                                                          .utilizamodificaprecio)
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              10,
+                                                                              0,
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              FlutterFlowIconButton(
+                                                                            borderColor:
+                                                                                Colors.transparent,
+                                                                            borderWidth:
+                                                                                0,
+                                                                            buttonSize:
+                                                                                50,
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.monetization_on_outlined,
+                                                                              color: FlutterFlowTheme.of(context).primariBagGroudBtn,
+                                                                              size: 30,
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              await Navigator.push(
+                                                                                context,
+                                                                                PageTransition(
+                                                                                  type: PageTransitionType.scale,
+                                                                                  alignment: Alignment.bottomCenter,
+                                                                                  duration: Duration(milliseconds: 300),
+                                                                                  reverseDuration: Duration(milliseconds: 300),
+                                                                                  child: ModificarPrecioWidget(
+                                                                                    pIdMaterial: getJsonField(
+                                                                                      listaMaterialesItem,
+                                                                                      r'''$.material_id''',
+                                                                                    ).toString(),
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              );
+                                                                            },
                                                                           ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                10,
-                                                                                0,
-                                                                                0,
-                                                                                0),
-                                                                            child:
-                                                                                FlutterFlowIconButton(
-                                                                              borderColor: Colors.transparent,
-                                                                              borderRadius: 15,
-                                                                              borderWidth: 0,
-                                                                              buttonSize: 30,
-                                                                              fillColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
-                                                                              icon: Icon(
-                                                                                Icons.add,
-                                                                                color: FlutterFlowTheme.of(context).lineColor,
-                                                                                size: 15,
-                                                                              ),
-                                                                              onPressed: () async {
-                                                                                responseMaterialesSuma = await NuevoPedidoCall.call(
-                                                                                  material: getJsonField(
-                                                                                    listaMaterialesItem,
-                                                                                    r'''$.material_id''',
-                                                                                  ).toString(),
-                                                                                  pedido: FFAppState().idPedido,
-                                                                                  cantidad: '1',
-                                                                                  token: FFAppState().tokenUsuarioApp,
-                                                                                  tipo: '1',
-                                                                                );
-                                                                                if ((responseMaterialesSuma?.succeeded ?? true)) {
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().listadoMateriales = getJsonField(
-                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.detalles''',
-                                                                                    );
-                                                                                    FFAppState().totalPedido = getJsonField(
-                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].total''',
-                                                                                    ).toString();
-                                                                                  });
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().totalKilos = getJsonField(
-                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].total_kg''',
-                                                                                    ).toString();
-                                                                                    FFAppState().idPedido = getJsonField(
-                                                                                      (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                      r'''$.mensaje.cabecera[0].pedido''',
-                                                                                    ).toString();
-                                                                                  });
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                    SnackBar(
-                                                                                      content: Text(
-                                                                                        'Operación realizada',
-                                                                                        style: TextStyle(
-                                                                                          color: Colors.white,
-                                                                                        ),
-                                                                                      ),
-                                                                                      duration: Duration(milliseconds: 1000),
-                                                                                      backgroundColor: FlutterFlowTheme.of(context).primariBagGroudBtn,
-                                                                                    ),
-                                                                                  );
-                                                                                } else {
-                                                                                  ScaffoldMessenger.of(context).showSnackBar(
-                                                                                    SnackBar(
-                                                                                      content: Text(
-                                                                                        getJsonField(
-                                                                                          (responseMaterialesSuma?.jsonBody ?? ''),
-                                                                                          r'''$.mensaje''',
-                                                                                        ).toString(),
-                                                                                        style: TextStyle(
-                                                                                          color: Colors.white,
-                                                                                        ),
-                                                                                      ),
-                                                                                      duration: Duration(milliseconds: 2000),
-                                                                                      backgroundColor: FlutterFlowTheme.of(context).tertiaryBagGroudBtn,
-                                                                                    ),
-                                                                                  );
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().totalPedido = '0';
-                                                                                    FFAppState().totalKilos = '0';
-                                                                                  });
-                                                                                  FFAppState().update(() {
-                                                                                    FFAppState().idPedido = '0';
-                                                                                  });
-                                                                                }
-
-                                                                                setState(() {});
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                                        ),
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
