@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AgregarKilosWidget extends StatefulWidget {
-  const AgregarKilosWidget({
+class ModificarPrecioWidget extends StatefulWidget {
+  const ModificarPrecioWidget({
     Key? key,
     this.pIdMaterial,
   }) : super(key: key);
@@ -18,25 +18,25 @@ class AgregarKilosWidget extends StatefulWidget {
   final String? pIdMaterial;
 
   @override
-  _AgregarKilosWidgetState createState() => _AgregarKilosWidgetState();
+  _ModificarPrecioWidgetState createState() => _ModificarPrecioWidgetState();
 }
 
-class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
-  ApiCallResponse? jsonPesaje;
-  TextEditingController? textKilosController;
+class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
+  ApiCallResponse? apiResults1l;
+  TextEditingController? precioController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textKilosController = TextEditingController();
+    precioController = TextEditingController();
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
-    textKilosController?.dispose();
+    precioController?.dispose();
     super.dispose();
   }
 
@@ -46,7 +46,7 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Color(0xA1C9C9C9),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
         child: Column(
@@ -79,7 +79,8 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                               buttonSize: 60,
                               icon: Icon(
                                 Icons.arrow_back_rounded,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 30,
                               ),
                               onPressed: () async {
@@ -91,7 +92,7 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(5, 10, 5, 0),
                           child: Text(
-                            'Ingresa la cantidad en kilos del material',
+                            'Ingresa el nuevo precio del material',
                             textAlign: TextAlign.center,
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
@@ -103,16 +104,16 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(8, 10, 8, 0),
                           child: TextFormField(
-                            controller: textKilosController,
+                            controller: precioController,
                             onChanged: (_) => EasyDebounce.debounce(
-                              'textKilosController',
+                              'precioController',
                               Duration(milliseconds: 2000),
                               () => setState(() {}),
                             ),
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: 'Kilos',
+                              hintText: 'Precio',
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -156,10 +157,10 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                                   topRight: Radius.circular(4.0),
                                 ),
                               ),
-                              suffixIcon: textKilosController!.text.isNotEmpty
+                              suffixIcon: precioController!.text.isNotEmpty
                                   ? InkWell(
                                       onTap: () async {
-                                        textKilosController?.clear();
+                                        precioController?.clear();
                                         setState(() {});
                                       },
                                       child: Icon(
@@ -179,61 +180,77 @@ class _AgregarKilosWidgetState extends State<AgregarKilosWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 10),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              jsonPesaje = await NuevoPedidoCall.call(
-                                pedido: FFAppState().idPedido,
+                              apiResults1l = await NuevoPedidoCall.call(
                                 material: widget.pIdMaterial,
-                                cantidad: textKilosController!.text,
+                                pedido: FFAppState().idPedido,
+                                precio: precioController!.text,
+                                tipoOperacion: 'P',
                                 token: FFAppState().tokenUsuarioApp,
-                                tipo: '2',
                               );
-                              if ((jsonPesaje?.succeeded ?? true)) {
+                              if ((apiResults1l?.succeeded ?? true)) {
                                 FFAppState().update(() {
-                                  FFAppState().idPedido = getJsonField(
-                                    (jsonPesaje?.jsonBody ?? ''),
-                                    r'''$.mensaje.cabecera[0].pedido''',
-                                  ).toString();
+                                  FFAppState().listadoMateriales = getJsonField(
+                                    (apiResults1l?.jsonBody ?? ''),
+                                    r'''$.mensaje.detalles''',
+                                  );
                                   FFAppState().totalPedido = getJsonField(
-                                    (jsonPesaje?.jsonBody ?? ''),
+                                    (apiResults1l?.jsonBody ?? ''),
                                     r'''$.mensaje.cabecera[0].total''',
                                   ).toString();
                                 });
                                 FFAppState().update(() {
                                   FFAppState().totalKilos = getJsonField(
-                                    (jsonPesaje?.jsonBody ?? ''),
+                                    (apiResults1l?.jsonBody ?? ''),
                                     r'''$.mensaje.cabecera[0].total_kg''',
                                   ).toString();
-                                  FFAppState().listadoMateriales = getJsonField(
-                                    (jsonPesaje?.jsonBody ?? ''),
-                                    r'''$.mensaje.detalles''',
-                                  );
+                                  FFAppState().idPedido = getJsonField(
+                                    (apiResults1l?.jsonBody ?? ''),
+                                    r'''$.mensaje.cabecera[0].pedido''',
+                                  ).toString();
                                 });
-                                await Navigator.push(
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Operación realizada',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 1000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .primariBagGroudBtn,
+                                  ),
+                                );
+                                await Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => MaterialesWidget(),
                                   ),
+                                  (r) => false,
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Error al registrar el peso',
+                                      getJsonField(
+                                        (apiResults1l?.jsonBody ?? ''),
+                                        r'''$.mensaje''',
+                                      ).toString(),
                                       style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .textColorBtn,
+                                        color: Colors.white,
                                       ),
                                     ),
                                     duration: Duration(milliseconds: 2000),
                                     backgroundColor:
-                                        FlutterFlowTheme.of(context)
-                                            .tertiaryBagGroudBtn,
+                                        FlutterFlowTheme.of(context).alternate,
                                   ),
                                 );
                               }
 
                               setState(() {});
                             },
-                            text: 'AGREGAR',
+                            text: 'MODIFICAR',
                             options: FFButtonOptions(
                               width: 150,
                               height: 40,
