@@ -31,7 +31,7 @@
 
 
 	<key>NSBluetoothAlwaysUsageDescription</key>
-      <string>Requerimos acceso a tu bluetooth para imprimir el ticket de tus pedidos</string>
+    <string>Requerimos acceso a tu bluetooth para imprimir el ticket de tus pedidos</string>
 
 
 	<key>UILaunchStoryboardName</key>

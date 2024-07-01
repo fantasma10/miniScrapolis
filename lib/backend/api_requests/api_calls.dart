@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 
-import '../../flutter_flow/flutter_flow_util.dart';
-
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -13,8 +13,8 @@ class LoginCall {
   static Future<ApiCallResponse> call({
     String? email = '',
     String? password = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "usuario": "${email}",
   "password": "${password}"
@@ -25,12 +25,14 @@ class LoginCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -38,8 +40,8 @@ class LoginCall {
 class EliminarUsuarioCall {
   static Future<ApiCallResponse> call({
     String? token = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}"
 }''';
@@ -49,12 +51,14 @@ class EliminarUsuarioCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -63,8 +67,8 @@ class ObtenerMaterialesCall {
   static Future<ApiCallResponse> call({
     String? token = '',
     String? pedido = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}",
   "pedido": "${pedido}"
@@ -76,12 +80,14 @@ class ObtenerMaterialesCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -95,8 +101,8 @@ class NuevoPedidoCall {
     String? tipo = '',
     String? tipoOperacion = '',
     String? precio = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "material": "${material}",
   "pedido": "${pedido}",
@@ -112,12 +118,14 @@ class NuevoPedidoCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -126,8 +134,8 @@ class DetallePedidoCall {
   static Future<ApiCallResponse> call({
     String? token = '',
     String? pedido = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}",
   "pedido": "${pedido}"
@@ -138,12 +146,14 @@ class DetallePedidoCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -154,8 +164,8 @@ class FinalizarPedidoCall {
     String? pedido = '',
     String? nombre = '',
     String? email = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}",
   "pedido": "${pedido}",
@@ -168,12 +178,14 @@ class FinalizarPedidoCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -181,8 +193,8 @@ class FinalizarPedidoCall {
 class HistorialCall {
   static Future<ApiCallResponse> call({
     String? token = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}"
 }''';
@@ -192,12 +204,14 @@ class HistorialCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -206,8 +220,8 @@ class HistorialDetalleCall {
   static Future<ApiCallResponse> call({
     String? token = '',
     String? pedido = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "token": "${token}",
   "pedido": "${pedido}"
@@ -219,12 +233,14 @@ class HistorialDetalleCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -236,8 +252,8 @@ class RegistrarmeCall {
     String? email = '',
     String? password = '',
     String? telefono = '',
-  }) {
-    final body = '''
+  }) async {
+    final ffApiRequestBody = '''
 {
   "nombres": "${nombres}",
   "apellidos": "${apellidos}",
@@ -252,12 +268,14 @@ class RegistrarmeCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
     );
   }
 }
@@ -278,20 +296,30 @@ class ApiPagingParams {
       'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
+String _toEncodable(dynamic item) {
+  return item;
+}
+
 String _serializeList(List? list) {
   list ??= <String>[];
   try {
-    return json.encode(list);
+    return json.encode(list, toEncodable: _toEncodable);
   } catch (_) {
+    if (kDebugMode) {
+      print("List serialization failed. Returning empty list.");
+    }
     return '[]';
   }
 }
 
-String _serializeJson(dynamic jsonVar) {
-  jsonVar ??= {};
+String _serializeJson(dynamic jsonVar, [bool isList = false]) {
+  jsonVar ??= (isList ? [] : {});
   try {
-    return json.encode(jsonVar);
+    return json.encode(jsonVar, toEncodable: _toEncodable);
   } catch (_) {
-    return '{}';
+    if (kDebugMode) {
+      print("Json serialization failed. Returning empty json.");
+    }
+    return isList ? '[]' : '{}';
   }
 }

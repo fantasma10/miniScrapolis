@@ -1,22 +1,25 @@
-import '../backend/api_requests/api_calls.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../ticket/ticket_widget.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/ticket/ticket_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'historial_detalles_model.dart';
+export 'historial_detalles_model.dart';
 
 class HistorialDetallesWidget extends StatefulWidget {
   const HistorialDetallesWidget({
-    Key? key,
+    super.key,
     this.idDetalle,
     this.nombre,
     this.email,
     this.total,
     this.kilos,
-  }) : super(key: key);
+  });
 
   final String? idDetalle;
   final String? nombre;
@@ -25,36 +28,39 @@ class HistorialDetallesWidget extends StatefulWidget {
   final String? kilos;
 
   @override
-  _HistorialDetallesWidgetState createState() =>
+  State<HistorialDetallesWidget> createState() =>
       _HistorialDetallesWidgetState();
 }
 
 class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
-  ApiCallResponse? apiiHistorialDetalle;
+  late HistorialDetallesModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => HistorialDetallesModel());
+
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      apiiHistorialDetalle = await HistorialDetalleCall.call(
+      _model.apiiHistorialDetalle = await HistorialDetalleCall.call(
         token: FFAppState().tokenUsuarioApp,
         pedido: widget.idDetalle,
       );
-      if ((apiiHistorialDetalle?.succeeded ?? true)) {
-        FFAppState().update(() {
-          FFAppState().jsonHistorialDetalle = getJsonField(
-            (apiiHistorialDetalle?.jsonBody ?? ''),
-            r'''$.mensaje''',
-          );
-        });
+
+      if ((_model.apiiHistorialDetalle?.succeeded ?? true)) {
+        FFAppState().jsonHistorialDetalle = getJsonField(
+          (_model.apiiHistorialDetalle?.jsonBody ?? ''),
+          r'''$.mensaje''',
+        );
+        FFAppState().update(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               getJsonField(
-                (apiiHistorialDetalle?.jsonBody ?? ''),
+                (_model.apiiHistorialDetalle?.jsonBody ?? ''),
                 r'''$.mensaje''',
               ).toString().toString(),
               style: TextStyle(
@@ -67,6 +73,13 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -88,15 +101,16 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                 shape: BoxShape.rectangle,
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(1, 1),
+                      alignment: AlignmentDirectional(1.0, 1.0),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 15, 0, 0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -105,13 +119,13 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                               children: [
                                 FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  borderWidth: 1,
-                                  buttonSize: 60,
+                                  borderRadius: 30.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 60.0,
                                   icon: Icon(
                                     Icons.arrow_back,
                                     color: Colors.black,
-                                    size: 40,
+                                    size: 40.0,
                                   ),
                                   onPressed: () async {
                                     Navigator.pop(context);
@@ -119,14 +133,15 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 0, 0),
+                                      5.0, 0.0, 0.0, 0.0),
                                   child: Text(
                                     'Detalle historial',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily: 'Poppins',
-                                          fontSize: 17,
+                                          fontSize: 17.0,
+                                          letterSpacing: 0.0,
                                         ),
                                   ),
                                 ),
@@ -134,31 +149,30 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                             ),
                             Expanded(
                               child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     FlutterFlowIconButton(
                                       borderColor: Colors.transparent,
-                                      borderRadius: 30,
-                                      borderWidth: 1,
-                                      buttonSize: 60,
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 60.0,
                                       icon: Icon(
                                         Icons.local_print_shop_outlined,
                                         color: Colors.black,
-                                        size: 40,
+                                        size: 40.0,
                                       ),
                                       onPressed: () async {
-                                        await Navigator.push(
+                                        Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => TicketWidget(
                                               id: widget.idDetalle,
                                               fecha: widget.kilos,
                                               nombre: widget.nombre,
-                                              email: widget.email,
                                               total: widget.total,
                                               tipoNav: 'D',
                                             ),
@@ -175,7 +189,8 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -190,21 +205,22 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      'ID:',
+                                      'Folio:',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       valueOrDefault<String>(
                                         widget.idDetalle,
@@ -215,10 +231,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                       ),
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -231,21 +248,22 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Nombre:',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       widget.nombre!.maybeHandleOverflow(
                                         maxChars: 40,
@@ -253,10 +271,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                       ),
                                       maxLines: 2,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -269,66 +288,30 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: Text(
-                                      'Email:',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 19,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: Text(
-                                      widget.email!.maybeHandleOverflow(
-                                        maxChars: 40,
-                                        replacement: '…',
-                                      ),
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 19,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       'Total:  \$',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
+                                        5.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       widget.total!,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -336,8 +319,8 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                 ],
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -345,23 +328,25 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                     Text(
                                       'Fecha:',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Poppins',
-                                            fontSize: 19,
+                                            fontSize: 19.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          5, 0, 0, 0),
+                                          5.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         widget.kilos!,
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily: 'Poppins',
-                                              fontSize: 19,
+                                              fontSize: 19.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
@@ -376,7 +361,8 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 15, 5, 20),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            5.0, 15.0, 5.0, 20.0),
                         child: Builder(
                           builder: (context) {
                             final listaMateriales = getJsonField(
@@ -392,13 +378,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                     listaMateriales[listaMaterialesIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 5, 5),
+                                      5.0, 0.0, 5.0, 5.0),
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 130,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 130.0,
                                     decoration: BoxDecoration(
                                       color: Color(0x6DD2D2D2),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -406,7 +393,7 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  5, 5, 5, 0),
+                                                  5.0, 5.0, 5.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
@@ -418,27 +405,27 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                5, 0, 0, 0),
+                                                            .fromSTEB(5.0, 0.0,
+                                                                0.0, 0.0),
                                                     child: Container(
-                                                      width: 60,
-                                                      height: 70,
+                                                      width: 60.0,
+                                                      height: 70.0,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(10),
+                                                                .circular(10.0),
                                                       ),
                                                       child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4),
+                                                                .circular(4.0),
                                                         child: Image.network(
                                                           getJsonField(
                                                             listaMaterialesItem,
                                                             r'''$.url_imagen''',
-                                                          ),
-                                                          width: 70,
-                                                          height: 70,
+                                                          ).toString(),
+                                                          width: 70.0,
+                                                          height: 70.0,
                                                           fit: BoxFit.cover,
                                                         ),
                                                       ),
@@ -448,19 +435,20 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(3, 0, 3, 0),
+                                                    .fromSTEB(
+                                                        3.0, 0.0, 3.0, 0.0),
                                                 child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.7,
-                                                  height: 125,
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          0.7,
+                                                  height: 125.0,
                                                   decoration: BoxDecoration(),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                5, 5, 0, 5),
+                                                            .fromSTEB(5.0, 5.0,
+                                                                0.0, 5.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -474,8 +462,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(0,
-                                                                      1, 0, 0),
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      1.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -485,10 +476,10 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                 padding:
                                                                     EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            5,
-                                                                            0,
-                                                                            0,
-                                                                            0),
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                 child: Text(
                                                                   getJsonField(
                                                                     listaMaterialesItem,
@@ -507,12 +498,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                   maxLines: 2,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .subtitle1
+                                                                      .titleMedium
                                                                       .override(
                                                                         fontFamily:
                                                                             'Poppins',
                                                                         fontSize:
-                                                                            17,
+                                                                            17.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                       ),
@@ -524,8 +517,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(5,
-                                                                      2, 0, 0),
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -538,12 +534,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
@@ -559,12 +557,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .normal,
@@ -576,8 +576,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(5,
-                                                                      2, 0, 0),
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -590,12 +593,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
@@ -618,12 +623,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .normal,
@@ -635,8 +642,11 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
-                                                                  .fromSTEB(5,
-                                                                      2, 0, 0),
+                                                                  .fromSTEB(
+                                                                      5.0,
+                                                                      2.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -649,12 +659,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
@@ -670,12 +682,14 @@ class _HistorialDetallesWidgetState extends State<HistorialDetallesWidget> {
                                                                         .start,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle1
+                                                                    .titleMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Poppins',
                                                                       fontSize:
-                                                                          17,
+                                                                          17.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .normal,

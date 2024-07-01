@@ -1,49 +1,54 @@
-import '../backend/api_requests/api_calls.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../home_page/home_page_widget.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/home_page/home_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'registro_model.dart';
+export 'registro_model.dart';
 
 class RegistroWidget extends StatefulWidget {
-  const RegistroWidget({Key? key}) : super(key: key);
+  const RegistroWidget({super.key});
 
   @override
-  _RegistroWidgetState createState() => _RegistroWidgetState();
+  State<RegistroWidget> createState() => _RegistroWidgetState();
 }
 
 class _RegistroWidgetState extends State<RegistroWidget> {
-  ApiCallResponse? jsonRegistri;
-  TextEditingController? txtApellidoController;
-  TextEditingController? txtNombreController;
-  TextEditingController? txtEmailController;
-  TextEditingController? txtTelefonoController;
-  TextEditingController? txtPasswordController;
-  late bool txtPasswordVisibility;
+  late RegistroModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    txtApellidoController = TextEditingController();
-    txtNombreController = TextEditingController();
-    txtEmailController = TextEditingController();
-    txtTelefonoController = TextEditingController();
-    txtPasswordController = TextEditingController(text: FFAppState().password);
-    txtPasswordVisibility = false;
+    _model = createModel(context, () => RegistroModel());
+
+    _model.txtNombreTextController ??= TextEditingController();
+    _model.txtNombreFocusNode ??= FocusNode();
+
+    _model.txtApellidoTextController ??= TextEditingController();
+    _model.txtApellidoFocusNode ??= FocusNode();
+
+    _model.txtEmailTextController ??= TextEditingController();
+    _model.txtEmailFocusNode ??= FocusNode();
+
+    _model.txtTelefonoTextController ??= TextEditingController();
+    _model.txtTelefonoFocusNode ??= FocusNode();
+
+    _model.txtPasswordTextController ??=
+        TextEditingController(text: FFAppState().password);
+    _model.txtPasswordFocusNode ??= FocusNode();
   }
 
   @override
   void dispose() {
-    txtApellidoController?.dispose();
-    txtNombreController?.dispose();
-    txtEmailController?.dispose();
-    txtTelefonoController?.dispose();
-    txtPasswordController?.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
@@ -53,7 +58,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).tertiary,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,8 +66,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
         children: [
           Expanded(
             child: Container(
-              width: 100,
-              height: 100,
+              width: 100.0,
+              height: 100.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: [
@@ -78,8 +83,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                 children: [
                   Expanded(
                     child: Container(
-                      width: 100,
-                      height: 100,
+                      width: 100.0,
+                      height: 100.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         boxShadow: [
@@ -95,35 +100,39 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 30.0, 0.0, 0.0),
                               child: CachedNetworkImage(
+                                fadeInDuration: Duration(milliseconds: 500),
+                                fadeOutDuration: Duration(milliseconds: 500),
                                 imageUrl:
                                     'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/cuisi-sucursales-f1glia/assets/tqgn1wj5soul/LogoInterior.png',
-                                width: 250,
-                                height: 150,
+                                width: 250.0,
+                                height: 150.0,
                                 fit: BoxFit.contain,
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 40, 15, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 40.0, 15.0, 0.0),
                               child: TextFormField(
-                                controller: txtNombreController,
+                                controller: _model.txtNombreTextController,
+                                focusNode: _model.txtNombreFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
-                                  'txtNombreController',
+                                  '_model.txtNombreTextController',
                                   Duration(milliseconds: 2000),
                                   () => setState(() {}),
                                 ),
                                 obscureText: false,
                                 decoration: InputDecoration(
+                                  isDense: false,
                                   labelText: 'Nombre',
                                   hintText: 'ingresa tu nombre',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .primariIcons,
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -132,9 +141,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primariIcons,
-                                      width: 2,
+                                      color: Color(0x00000000),
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -144,7 +152,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -154,7 +162,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -166,49 +174,56 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primariIcons,
                                   ),
-                                  suffixIcon:
-                                      txtNombreController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                txtNombreController?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                color: Color(0xFF757575),
-                                                size: 22,
-                                              ),
-                                            )
-                                          : null,
+                                  suffixIcon: _model.txtNombreTextController!
+                                          .text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () async {
+                                            _model.txtNombreTextController
+                                                ?.clear();
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Color(0xFF757575),
+                                            size: 22.0,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      letterSpacing: 0.0,
                                     ),
+                                validator: _model
+                                    .txtNombreTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 10.0, 15.0, 0.0),
                               child: TextFormField(
-                                controller: txtApellidoController,
+                                controller: _model.txtApellidoTextController,
+                                focusNode: _model.txtApellidoFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
-                                  'txtApellidoController',
+                                  '_model.txtApellidoTextController',
                                   Duration(milliseconds: 2000),
                                   () => setState(() {}),
                                 ),
                                 obscureText: false,
                                 decoration: InputDecoration(
+                                  isDense: false,
                                   labelText: 'Apellido',
                                   hintText: 'ingresa tu apellido',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .primariIcons,
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -217,9 +232,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primariIcons,
-                                      width: 2,
+                                      color: Color(0x00000000),
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -229,7 +243,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -239,7 +253,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -251,49 +265,56 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primariIcons,
                                   ),
-                                  suffixIcon:
-                                      txtApellidoController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                txtApellidoController?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                color: Color(0xFF757575),
-                                                size: 22,
-                                              ),
-                                            )
-                                          : null,
+                                  suffixIcon: _model.txtApellidoTextController!
+                                          .text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () async {
+                                            _model.txtApellidoTextController
+                                                ?.clear();
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Color(0xFF757575),
+                                            size: 22.0,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      letterSpacing: 0.0,
                                     ),
+                                validator: _model
+                                    .txtApellidoTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 10.0, 15.0, 0.0),
                               child: TextFormField(
-                                controller: txtEmailController,
+                                controller: _model.txtEmailTextController,
+                                focusNode: _model.txtEmailFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
-                                  'txtEmailController',
+                                  '_model.txtEmailTextController',
                                   Duration(milliseconds: 2000),
                                   () => setState(() {}),
                                 ),
                                 obscureText: false,
                                 decoration: InputDecoration(
+                                  isDense: false,
                                   labelText: 'Email',
                                   hintText: 'ingresa tu email',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .primariIcons,
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -302,9 +323,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primariIcons,
-                                      width: 2,
+                                      color: Color(0x00000000),
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -314,7 +334,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -324,7 +344,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -336,50 +356,57 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primariIcons,
                                   ),
-                                  suffixIcon:
-                                      txtEmailController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                txtEmailController?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                color: Color(0xFF757575),
-                                                size: 22,
-                                              ),
-                                            )
-                                          : null,
+                                  suffixIcon: _model.txtEmailTextController!
+                                          .text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () async {
+                                            _model.txtEmailTextController
+                                                ?.clear();
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Color(0xFF757575),
+                                            size: 22.0,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      letterSpacing: 0.0,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                validator: _model
+                                    .txtEmailTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 10.0, 15.0, 0.0),
                               child: TextFormField(
-                                controller: txtTelefonoController,
+                                controller: _model.txtTelefonoTextController,
+                                focusNode: _model.txtTelefonoFocusNode,
                                 onChanged: (_) => EasyDebounce.debounce(
-                                  'txtTelefonoController',
+                                  '_model.txtTelefonoTextController',
                                   Duration(milliseconds: 2000),
                                   () => setState(() {}),
                                 ),
                                 obscureText: false,
                                 decoration: InputDecoration(
+                                  isDense: false,
                                   labelText: 'Telefono',
                                   hintText: 'ingresa tu telefono',
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .primariIcons,
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -388,9 +415,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primariIcons,
-                                      width: 2,
+                                      color: Color(0x00000000),
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -400,7 +426,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -410,7 +436,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -422,37 +448,43 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primariIcons,
                                   ),
-                                  suffixIcon:
-                                      txtTelefonoController!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                txtTelefonoController?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                color: Color(0xFF757575),
-                                                size: 22,
-                                              ),
-                                            )
-                                          : null,
+                                  suffixIcon: _model.txtTelefonoTextController!
+                                          .text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () async {
+                                            _model.txtTelefonoTextController
+                                                ?.clear();
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Color(0xFF757575),
+                                            size: 22.0,
+                                          ),
+                                        )
+                                      : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      letterSpacing: 0.0,
                                     ),
                                 keyboardType: TextInputType.phone,
+                                validator: _model
+                                    .txtTelefonoTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 10, 15, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 10.0, 15.0, 0.0),
                               child: TextFormField(
-                                controller: txtPasswordController,
-                                obscureText: !txtPasswordVisibility,
+                                controller: _model.txtPasswordTextController,
+                                focusNode: _model.txtPasswordFocusNode,
+                                obscureText: !_model.txtPasswordVisibility,
                                 decoration: InputDecoration(
                                   labelText: 'Contraseña\n',
                                   hintText: 'ingresa tu contraseña',
@@ -460,7 +492,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
                                           .primariIcons,
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -469,9 +501,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primariIcons,
-                                      width: 2,
+                                      color: Color(0x00000000),
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -481,7 +512,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   errorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -491,7 +522,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   focusedErrorBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
-                                      width: 2,
+                                      width: 2.0,
                                     ),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(4.0),
@@ -505,65 +536,90 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                   ),
                                   suffixIcon: InkWell(
                                     onTap: () => setState(
-                                      () => txtPasswordVisibility =
-                                          !txtPasswordVisibility,
+                                      () => _model.txtPasswordVisibility =
+                                          !_model.txtPasswordVisibility,
                                     ),
                                     focusNode: FocusNode(skipTraversal: true),
                                     child: Icon(
-                                      txtPasswordVisibility
+                                      _model.txtPasswordVisibility
                                           ? Icons.visibility_outlined
                                           : Icons.visibility_off_outlined,
                                       color: Color(0xFF757575),
-                                      size: 22,
+                                      size: 22.0,
                                     ),
                                   ),
                                 ),
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      letterSpacing: 0.0,
                                     ),
+                                validator: _model
+                                    .txtPasswordTextControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 40.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  if (txtNombreController!.text != null &&
-                                      txtNombreController!.text != '') {
-                                    if (txtPasswordController!.text != null &&
-                                        txtPasswordController!.text != '') {
-                                      if (txtTelefonoController!.text != null &&
-                                          txtTelefonoController!.text != '') {
-                                        if (txtApellidoController!.text !=
+                                  if (_model.txtNombreTextController.text !=
+                                          null &&
+                                      _model.txtNombreTextController.text !=
+                                          '') {
+                                    if (_model.txtPasswordTextController.text !=
+                                            null &&
+                                        _model.txtPasswordTextController.text !=
+                                            '') {
+                                      if (_model.txtTelefonoTextController
+                                                  .text !=
+                                              null &&
+                                          _model.txtTelefonoTextController
+                                                  .text !=
+                                              '') {
+                                        if (_model.txtApellidoTextController
+                                                    .text !=
                                                 null &&
-                                            txtApellidoController!.text != '') {
-                                          if (txtEmailController!.text !=
+                                            _model.txtApellidoTextController
+                                                    .text !=
+                                                '') {
+                                          if (_model.txtEmailTextController
+                                                      .text !=
                                                   null &&
-                                              txtEmailController!.text != '') {
-                                            jsonRegistri =
+                                              _model.txtEmailTextController
+                                                      .text !=
+                                                  '') {
+                                            _model.jsonRegistri =
                                                 await RegistrarmeCall.call(
-                                              nombres:
-                                                  txtNombreController!.text,
-                                              apellidos:
-                                                  txtApellidoController!.text,
-                                              email: txtEmailController!.text,
-                                              password:
-                                                  txtPasswordController!.text,
-                                              telefono:
-                                                  txtTelefonoController!.text,
+                                              nombres: _model
+                                                  .txtNombreTextController.text,
+                                              apellidos: _model
+                                                  .txtApellidoTextController
+                                                  .text,
+                                              email: _model
+                                                  .txtEmailTextController.text,
+                                              password: _model
+                                                  .txtPasswordTextController
+                                                  .text,
+                                              telefono: _model
+                                                  .txtTelefonoTextController
+                                                  .text,
                                             );
-                                            if ((jsonRegistri?.succeeded ??
+
+                                            if ((_model
+                                                    .jsonRegistri?.succeeded ??
                                                 true)) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
                                                     getJsonField(
-                                                      (jsonRegistri?.jsonBody ??
+                                                      (_model.jsonRegistri
+                                                              ?.jsonBody ??
                                                           ''),
                                                       r'''$.mensaje''',
                                                     ).toString(),
@@ -579,8 +635,7 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                                           .primariBagGroudBtn,
                                                 ),
                                               );
-                                              await Navigator
-                                                  .pushAndRemoveUntil(
+                                              Navigator.pushAndRemoveUntil(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
@@ -594,7 +649,8 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                                 SnackBar(
                                                   content: Text(
                                                     getJsonField(
-                                                      (jsonRegistri?.jsonBody ??
+                                                      (_model.jsonRegistri
+                                                              ?.jsonBody ??
                                                           ''),
                                                       r'''$.mensaje''',
                                                     ).toString(),
@@ -704,22 +760,27 @@ class _RegistroWidgetState extends State<RegistroWidget> {
                                 },
                                 text: 'Registrarme',
                                 options: FFButtonOptions(
-                                  width: 240,
-                                  height: 50,
+                                  width: 240.0,
+                                  height: 50.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .primariBagGroudBtn,
                                   textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
+                                      .titleSmall
                                       .override(
                                         fontFamily: 'Poppins',
                                         color: Colors.white,
+                                        letterSpacing: 0.0,
                                       ),
-                                  elevation: 4,
+                                  elevation: 4.0,
                                   borderSide: BorderSide(
                                     color: Color(0xFFF2F3F6),
-                                    width: 2,
+                                    width: 2.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(12.0),
                                 ),
                               ),
                             ),

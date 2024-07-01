@@ -1,16 +1,18 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'flutter_flow/internationalization.dart';
 import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
 
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
@@ -28,7 +30,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
   bool displaySplashImage = true;
@@ -37,12 +38,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    Future.delayed(
-        Duration(seconds: 1), () => setState(() => displaySplashImage = false));
-  }
-
-  void setLocale(String language) {
-    setState(() => _locale = createLocale(language));
+    Future.delayed(Duration(milliseconds: 1000),
+        () => setState(() => displaySplashImage = false));
   }
 
   void setThemeMode(ThemeMode mode) => setState(() {
@@ -54,14 +51,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'TuTicket',
       localizationsDelegates: [
-        FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: _locale,
       supportedLocales: const [Locale('en', '')],
-      theme: ThemeData(brightness: Brightness.light),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        useMaterial3: false,
+      ),
       themeMode: _themeMode,
       home: displaySplashImage
           ? Builder(
@@ -70,8 +68,8 @@ class _MyAppState extends State<MyApp> {
                 child: Center(
                   child: Image.asset(
                     'assets/images/SplashTuTicket.png',
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    width: MediaQuery.sizeOf(context).width * 0.6,
+                    height: MediaQuery.sizeOf(context).height * 0.6,
                     fit: BoxFit.contain,
                   ),
                 ),
