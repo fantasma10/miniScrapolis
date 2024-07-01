@@ -1,41 +1,51 @@
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../home_page/home_page_widget.dart';
-import '../materiales/materiales_widget.dart';
-import '../orden_finalizada/orden_finalizada_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/home_page/home_page_widget.dart';
+import '/materiales/materiales_widget.dart';
+import '/orden_finalizada/orden_finalizada_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'menu_principal_model.dart';
+export 'menu_principal_model.dart';
 
 class MenuPrincipalWidget extends StatefulWidget {
-  const MenuPrincipalWidget({Key? key}) : super(key: key);
+  const MenuPrincipalWidget({super.key});
 
   @override
-  _MenuPrincipalWidgetState createState() => _MenuPrincipalWidgetState();
+  State<MenuPrincipalWidget> createState() => _MenuPrincipalWidgetState();
 }
 
 class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
-  final _unfocusNode = FocusNode();
+  late MenuPrincipalModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => MenuPrincipalModel());
+  }
+
+  @override
   void dispose() {
-    _unfocusNode.dispose();
+    _model.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Colors.transparent,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-        child: Column(
+    return GestureDetector(
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.transparent,
+        body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -44,14 +54,14 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 250,
-                  height: 270,
+                  width: 250.0,
+                  height: 270.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryColor,
-                    borderRadius: BorderRadius.circular(10),
+                    color: FlutterFlowTheme.of(context).secondary,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -60,13 +70,13 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
                           children: [
                             FlutterFlowIconButton(
                               borderColor: Colors.transparent,
-                              borderRadius: 30,
-                              borderWidth: 1,
-                              buttonSize: 60,
+                              borderRadius: 30.0,
+                              borderWidth: 1.0,
+                              buttonSize: 60.0,
                               icon: Icon(
                                 Icons.arrow_back_rounded,
                                 color: FlutterFlowTheme.of(context).primaryText,
-                                size: 30,
+                                size: 30.0,
                               ),
                               onPressed: () async {
                                 Navigator.pop(context);
@@ -75,10 +85,11 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 10.0, 0.0, 10.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              await Navigator.push(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => MaterialesWidget(),
@@ -87,32 +98,38 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
                             },
                             text: 'Registrar solicitud',
                             options: FFButtonOptions(
-                              width: 230,
-                              height: 50,
+                              width: 230.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primariBagGroudBtn,
                               textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
+                                  .titleSmall
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                   ),
-                              elevation: 4,
+                              elevation: 4.0,
                               borderSide: BorderSide(
                                 color: Colors.white,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                             showLoadingIndicator: false,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 10.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              await Navigator.push(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => OrdenFinalizadaWidget(),
@@ -121,32 +138,38 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
                             },
                             text: 'Ordenes registradas',
                             options: FFButtonOptions(
-                              width: 230,
-                              height: 50,
+                              width: 230.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primariBagGroudBtn,
                               textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
+                                  .titleSmall
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                   ),
-                              elevation: 4,
+                              elevation: 4.0,
                               borderSide: BorderSide(
                                 color: Colors.white,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                             showLoadingIndicator: false,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 10.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              await Navigator.push(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => HomePageWidget(),
@@ -155,23 +178,28 @@ class _MenuPrincipalWidgetState extends State<MenuPrincipalWidget> {
                             },
                             text: 'Salir',
                             options: FFButtonOptions(
-                              width: 230,
-                              height: 50,
+                              width: 230.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .tertiaryBagGroudBtn,
                               textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
+                                  .titleSmall
                                   .override(
                                     fontFamily: 'Poppins',
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                   ),
-                              elevation: 4,
+                              elevation: 4.0,
                               borderSide: BorderSide(
                                 color: Colors.white,
-                                width: 2,
+                                width: 2.0,
                               ),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                             showLoadingIndicator: false,
                           ),

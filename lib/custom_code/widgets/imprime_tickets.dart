@@ -1,9 +1,9 @@
 // Automatic FlutterFlow imports
-import '../../flutter_flow/flutter_flow_theme.dart';
-import '../../flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
-import '../actions/index.dart'; // Imports custom actions
-import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
+import '/custom_code/actions/index.dart'; // Imports custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
 import 'package:image/image.dart' as Imag;
@@ -25,7 +24,6 @@ class ImprimeTickets extends StatefulWidget {
     this.width,
     this.height,
     required this.nombre,
-    required this.email,
     required this.total,
     required this.listadoArticulos,
     required this.fecha,
@@ -35,7 +33,6 @@ class ImprimeTickets extends StatefulWidget {
   final double? width;
   final double? height;
   final String nombre;
-  final String email;
   final String total;
   final dynamic listadoArticulos;
   final String fecha;
@@ -254,13 +251,6 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
           fontType: PosFontType.fontA,
         ),
       );
-      bytes += generator.text(
-        ("Email: " + FFAppState().empresaTicket['email'].toString()),
-        styles: PosStyles(
-          bold: true,
-          fontType: PosFontType.fontA,
-        ),
-      );
     }
 
     bytes += generator.feed(1);
@@ -274,12 +264,6 @@ class _ImprimeTicketsState extends State<ImprimeTickets> {
 
     bytes += generator.text(
       widget.nombre ?? "",
-      styles: PosStyles(
-        fontType: PosFontType.fontA,
-      ),
-    );
-    bytes += generator.text(
-      widget.email ?? "",
       styles: PosStyles(
         fontType: PosFontType.fontA,
       ),

@@ -1,46 +1,52 @@
-import '../backend/api_requests/api_calls.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../historial_detalles/historial_detalles_widget.dart';
-import '../menu_principal/menu_principal_widget.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/historial_detalles/historial_detalles_widget.dart';
+import '/menu_principal/menu_principal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'orden_finalizada_model.dart';
+export 'orden_finalizada_model.dart';
 
 class OrdenFinalizadaWidget extends StatefulWidget {
-  const OrdenFinalizadaWidget({Key? key}) : super(key: key);
+  const OrdenFinalizadaWidget({super.key});
 
   @override
-  _OrdenFinalizadaWidgetState createState() => _OrdenFinalizadaWidgetState();
+  State<OrdenFinalizadaWidget> createState() => _OrdenFinalizadaWidgetState();
 }
 
 class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
-  ApiCallResponse? apiHistorial;
+  late OrdenFinalizadaModel _model;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _model = createModel(context, () => OrdenFinalizadaModel());
+
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      apiHistorial = await HistorialCall.call(
+      _model.apiHistorial = await HistorialCall.call(
         token: FFAppState().tokenUsuarioApp,
       );
-      if ((apiHistorial?.succeeded ?? true)) {
-        FFAppState().update(() {
-          FFAppState().jsonHistorial = getJsonField(
-            (apiHistorial?.jsonBody ?? ''),
-            r'''$.mensaje''',
-          );
-        });
+
+      if ((_model.apiHistorial?.succeeded ?? true)) {
+        FFAppState().jsonHistorial = getJsonField(
+          (_model.apiHistorial?.jsonBody ?? ''),
+          r'''$.mensaje''',
+        );
+        FFAppState().update(() {});
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               getJsonField(
-                (apiHistorial?.jsonBody ?? ''),
+                (_model.apiHistorial?.jsonBody ?? ''),
                 r'''$.mensaje''',
               ).toString().toString(),
               style: TextStyle(
@@ -53,6 +59,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -78,9 +91,10 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(1, 1),
+                    alignment: AlignmentDirectional(1.0, 1.0),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 15, 0, 0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -89,16 +103,16 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                             children: [
                               FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
-                                borderRadius: 30,
-                                borderWidth: 1,
-                                buttonSize: 60,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
                                 icon: Icon(
                                   Icons.menu_rounded,
                                   color: Colors.black,
-                                  size: 40,
+                                  size: 40.0,
                                 ),
                                 onPressed: () async {
-                                  await Navigator.push(
+                                  Navigator.push(
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.scale,
@@ -112,15 +126,16 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                 },
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   'Ordenes registradas',
                                   style: FlutterFlowTheme.of(context)
-                                      .bodyText1
+                                      .bodyMedium
                                       .override(
                                         fontFamily: 'Poppins',
-                                        fontSize: 17,
+                                        fontSize: 17.0,
+                                        letterSpacing: 0.0,
                                       ),
                                 ),
                               ),
@@ -132,7 +147,8 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 15, 5, 20),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(5.0, 15.0, 5.0, 20.0),
                       child: Builder(
                         builder: (context) {
                           final listHistorial = getJsonField(
@@ -147,11 +163,15 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                               final listHistorialItem =
                                   listHistorial[listHistorialIndex];
                               return Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 0, 5, 5),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 5.0, 5.0),
                                 child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    await Navigator.push(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
@@ -163,10 +183,6 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                           nombre: getJsonField(
                                             listHistorialItem,
                                             r'''$.nombre_proveedor''',
-                                          ).toString(),
-                                          email: getJsonField(
-                                            listHistorialItem,
-                                            r'''$.email_proveedor''',
                                           ).toString(),
                                           total: getJsonField(
                                             listHistorialItem,
@@ -181,11 +197,12 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                     );
                                   },
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 110,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 95.0,
                                     decoration: BoxDecoration(
                                       color: Color(0x6DD2D2D2),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -193,28 +210,27 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
+                                                  5.0, 0.0, 0.0, 0.0),
                                           child: Icon(
                                             Icons.timer_sharp,
                                             color: FlutterFlowTheme.of(context)
                                                 .primariIcons,
-                                            size: 40,
+                                            size: 40.0,
                                           ),
                                         ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  3, 0, 3, 0),
+                                                  3.0, 0.0, 3.0, 0.0),
                                           child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
+                                            width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.8,
-                                            height: 110,
+                                            height: 110.0,
                                             decoration: BoxDecoration(),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5, 0, 0, 0),
+                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -225,23 +241,25 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 1, 0, 0),
+                                                            .fromSTEB(0.0, 1.0,
+                                                                0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
                                                       children: [
                                                         Text(
-                                                          'Nº de orden:  ',
+                                                          'Folio:  ',
                                                           textAlign:
                                                               TextAlign.start,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -256,11 +274,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                               TextAlign.start,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -272,8 +292,8 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 1, 0, 0),
+                                                            .fromSTEB(0.0, 1.0,
+                                                                0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -284,11 +304,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                               TextAlign.start,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -303,11 +325,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                               TextAlign.start,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -319,8 +343,8 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 1, 0, 0),
+                                                            .fromSTEB(0.0, 1.0,
+                                                                0.0, 0.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -331,11 +355,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                               TextAlign.start,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -357,65 +383,13 @@ class _OrdenFinalizadaWidgetState extends State<OrdenFinalizadaWidget> {
                                                           maxLines: 2,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .subtitle1
+                                                              .titleMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                fontSize: 17,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 1, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          'Email:  ',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .subtitle1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 17,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                        Text(
-                                                          getJsonField(
-                                                            listHistorialItem,
-                                                            r'''$.email_proveedor''',
-                                                          )
-                                                              .toString()
-                                                              .maybeHandleOverflow(
-                                                                maxChars: 15,
-                                                                replacement:
-                                                                    '…',
-                                                              ),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          maxLines: 2,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .subtitle1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                fontSize: 17,
+                                                                fontSize: 17.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,

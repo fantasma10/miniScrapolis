@@ -3,16 +3,15 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/materiales/materiales_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'modificar_precio_model.dart';
-export 'modificar_precio_model.dart';
+import 'modificar_cantidad_model.dart';
+export 'modificar_cantidad_model.dart';
 
-class ModificarPrecioWidget extends StatefulWidget {
-  const ModificarPrecioWidget({
+class ModificarCantidadWidget extends StatefulWidget {
+  const ModificarCantidadWidget({
     super.key,
     this.pIdMaterial,
   });
@@ -20,18 +19,19 @@ class ModificarPrecioWidget extends StatefulWidget {
   final String? pIdMaterial;
 
   @override
-  State<ModificarPrecioWidget> createState() => _ModificarPrecioWidgetState();
+  State<ModificarCantidadWidget> createState() =>
+      _ModificarCantidadWidgetState();
 }
 
-class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
-  late ModificarPrecioModel _model;
+class _ModificarCantidadWidgetState extends State<ModificarCantidadWidget> {
+  late ModificarCantidadModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ModificarPrecioModel());
+    _model = createModel(context, () => ModificarCantidadModel());
 
     _model.precioTextController ??= TextEditingController();
     _model.precioFocusNode ??= FocusNode();
@@ -98,7 +98,7 @@ class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               5.0, 10.0, 5.0, 0.0),
                           child: Text(
-                            'Ingresa el nuevo precio del material',
+                            'Ingresa cantidad del material',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -123,7 +123,7 @@ class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: 'Precio',
+                              hintText: 'Cantidad',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
@@ -203,30 +203,36 @@ class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
                               0.0, 20.0, 0.0, 10.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              _model.apiResults1l = await NuevoPedidoCall.call(
+                              _model.responseMaterialesEdit =
+                                  await NuevoPedidoCall.call(
                                 material: widget.pIdMaterial,
                                 pedido: FFAppState().idPedido,
-                                precio: _model.precioTextController.text,
-                                tipoOperacion: 'P',
+                                cantidad: _model.precioTextController.text,
                                 token: FFAppState().tokenUsuarioApp,
+                                tipo: '2',
                               );
 
-                              if ((_model.apiResults1l?.succeeded ?? true)) {
+                              if ((_model.responseMaterialesEdit?.succeeded ??
+                                  true)) {
                                 FFAppState().listadoMateriales = getJsonField(
-                                  (_model.apiResults1l?.jsonBody ?? ''),
+                                  (_model.responseMaterialesEdit?.jsonBody ??
+                                      ''),
                                   r'''$.mensaje.detalles''',
                                 );
                                 FFAppState().totalPedido = getJsonField(
-                                  (_model.apiResults1l?.jsonBody ?? ''),
+                                  (_model.responseMaterialesEdit?.jsonBody ??
+                                      ''),
                                   r'''$.mensaje.cabecera[0].total''',
                                 ).toString();
                                 FFAppState().update(() {});
                                 FFAppState().totalKilos = getJsonField(
-                                  (_model.apiResults1l?.jsonBody ?? ''),
+                                  (_model.responseMaterialesEdit?.jsonBody ??
+                                      ''),
                                   r'''$.mensaje.cabecera[0].total_kg''',
                                 ).toString();
                                 FFAppState().idPedido = getJsonField(
-                                  (_model.apiResults1l?.jsonBody ?? ''),
+                                  (_model.responseMaterialesEdit?.jsonBody ??
+                                      ''),
                                   r'''$.mensaje.cabecera[0].pedido''',
                                 ).toString();
                                 FFAppState().update(() {});
@@ -238,25 +244,20 @@ class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 1000),
+                                    duration: Duration(milliseconds: 2000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context)
                                             .primariBagGroudBtn,
                                   ),
-                                );
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MaterialesWidget(),
-                                  ),
-                                  (r) => false,
                                 );
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
                                       getJsonField(
-                                        (_model.apiResults1l?.jsonBody ?? ''),
+                                        (_model.responseMaterialesEdit
+                                                ?.jsonBody ??
+                                            ''),
                                         r'''$.mensaje''',
                                       ).toString(),
                                       style: TextStyle(
@@ -265,14 +266,17 @@ class _ModificarPrecioWidgetState extends State<ModificarPrecioWidget> {
                                     ),
                                     duration: Duration(milliseconds: 2000),
                                     backgroundColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context)
+                                            .tertiaryBagGroudBtn,
                                   ),
                                 );
                               }
 
+                              Navigator.pop(context);
+
                               setState(() {});
                             },
-                            text: 'MODIFICAR',
+                            text: 'ACEPTAR',
                             options: FFButtonOptions(
                               width: 150.0,
                               height: 40.0,
