@@ -12,7 +12,8 @@ import 'dart:typed_data';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
-import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
+//import 'package:esc_pos_utils_plus/esc_pos_utils.dart';
+import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart'
 import 'package:image/image.dart' as Imag;
 import 'package:json_response/json_response.dart';
 import '../../materiales/materiales_widget.dart';
