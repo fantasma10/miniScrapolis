@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'index.dart';
 
@@ -39,16 +39,17 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     Future.delayed(Duration(milliseconds: 1000),
-        () => setState(() => displaySplashImage = false));
+        () => safeSetState(() => displaySplashImage = false));
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
       });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TuTicket',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
